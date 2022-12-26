@@ -1,0 +1,34 @@
+main {
+	@apply max-w-xl px-2 mx-auto;
+	h1 {
+		@apply text-3xl text-center mt-10 font-bold p-3 bg-[#1d928c] text-white rounded-lg;
+	}
+	form {
+		p {
+			@apply text-lg mt-8 font-semibold;
+		}
+		div {
+			justify-content: space-between;
+			button {
+				@apply max-w-[260px] px-4 py-3 font-medium text-sm uppercase shadow-md rounded hover:shadow-lg focus:shadow-lg active:shadow-lg transition duration-150 ease-in-out w-full;
+			}
+		}
+		input {
+			@apply w-full px-4 py-2 text-xl text-gray-700 bg-gray-200 border border-gray-300 rounded transition duration-150 ease-in-out focus:text-gray-700 focus:bg-white focus:border-slate-600 mb-6;
+		}
+		.bedAndBath {
+			@apply flex justify-start gap-6 mb-6;
+			div {
+				.numbers {
+					@apply bg-gray-200 px-4 py-2 text-xl text-gray-700  border border-gray-300 rounded transition duration-150 ease-in-out focus:text-gray-700 focus:bg-white focus:border-slate-600 text-center;
+				}
+			}
+		}
+		textarea {
+			@apply w-full px-4 py-2 text-xl text-gray-700 bg-gray-200 border border-gray-300 rounded transition duration-150 ease-in-out focus:text-gray-700 focus:bg-white focus:border-slate-600 mb-6;
+		}
+		.addSel {
+			@apply mb-6 w-full px-7 py-3 bg-[#4a60a1] text-white font-medium text-sm uppercase rounded shadow-md hover:bg-[#1d928c] hover:shadow-lg focus:bg-blue-700 focus:shadow-lg active:bg-[#115d59] active:shadow-lg transition duration-150 ease-in-out;
+		}
+	}
+}

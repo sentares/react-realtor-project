@@ -1,9 +1,12 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
+import { getAuth, onAuthStateChanged } from 'firebase/auth'
 
 export const NavHeader = () => {
 	const location = useLocation()
 	const navigate = useNavigate()
+	const [pagesState, setPageState] = useState('Войти')
+	const auth = getAuth()
 
 	function pathMatchRoute(route) {
 		if (route === location.pathname) {
@@ -11,34 +14,45 @@ export const NavHeader = () => {
 		}
 	}
 
+	useEffect(() => {
+		onAuthStateChanged(auth, user => {
+			if (user) {
+				setPageState('Мой профиль')
+			} else {
+				setPageState('Войти')
+			}
+		})
+	}, [auth])
+
 	return (
 		<div>
 			<ul>
 				<li onClick={() => navigate('/')}>
 					<button
-						className={`text-white ${
+						className={`text-black ${
 							pathMatchRoute('/') && 'shadow-xl bg-white text-[#2c3a61]'
 						}`}
 					>
-						Home
+						Домашняя
 					</button>
 				</li>
 				<li onClick={() => navigate('/offers')}>
 					<button
-						className={`text-white ${
+						className={`text-black ${
 							pathMatchRoute('/offers') && 'shadow-xl bg-white text-[#2c3a61]'
 						}`}
 					>
-						Offers
+						Предложения
 					</button>
 				</li>
-				<li onClick={() => navigate('/sign-in')}>
+				<li onClick={() => navigate('/profile')}>
 					<button
-						className={`text-white ${
-							pathMatchRoute('/sign-in') && 'shadow-xl bg-white text-[#2c3a61]'
+						className={`text-black ${
+							(pathMatchRoute('/sign-in') || pathMatchRoute('/profile')) &&
+							'shadow-xl bg-white text-[#2c3a61]'
 						}`}
 					>
-						Sign-in
+						{pagesState}
 					</button>
 				</li>
 			</ul>

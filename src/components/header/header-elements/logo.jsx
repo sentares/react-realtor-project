@@ -6,9 +6,9 @@ export const Logo = () => {
 	return (
 		<div className=' ml-7 '>
 			<img
-				src='/assets/svg/final-log.svg'
+				src='/assets/svg/logo-sky.svg'
 				alt='logo'
-				className='w-[100px] h-[60px] cursor-pointer p-[-50px] '
+				className='w-[100px] h-[60px] cursor-pointer p-[-50px]  '
 				onClick={() => navigate('/')}
 			/>
 		</div>
