@@ -2,6 +2,7 @@
 @import './profile';
 @import './loader/loader';
 @import './createSel';
-
-:root {
-}
+@import './listingItem/listingItem.scss';
+@import './listing';
+@import './modalMap';
+@import './home';

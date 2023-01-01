@@ -9,36 +9,36 @@ export const LoaderElement = () => {
 		>
 			<defs>
 				<linearGradient id='grad' x1='0' y1='0' x2='0' y2='1'>
-					<stop offset='0%' stop-color='#000' />
-					<stop offset='100%' stop-color='#fff' />
+					<stop offset='0%' stopColor='#000' />
+					<stop offset='100%' stopColor='#fff' />
 				</linearGradient>
 				<mask id='grad-mask'>
 					<rect x='0' y='0' width='64' height='64' fill='url(#grad)' />
 				</mask>
 			</defs>
 			<circle
-				class='pl__ring'
+				className='pl__ring'
 				cx='32'
 				cy='32'
 				r='26'
 				fill='none'
 				stroke='hsl(223,90%,55%)'
-				stroke-width='12'
-				stroke-dasharray='169.65 169.65'
-				stroke-dashoffset='-127.24'
-				stroke-linecap='round'
+				strokeWidth='12'
+				strokeDasharray='169.65 169.65'
+				strokeDashoffset='-127.24'
+				strokeLinecap='round'
 				transform='rotate(135)'
 			/>
 			<g fill='hsl(223,90%,55%)'>
 				<circle
-					class='pl__ball1'
+					className='pl__ball1'
 					cx='32'
 					cy='45'
 					r='6'
 					transform='rotate(14)'
 				/>
 				<circle
-					class='pl__ball2'
+					className='pl__ball2'
 					cx='32'
 					cy='48'
 					r='3'
@@ -47,28 +47,28 @@ export const LoaderElement = () => {
 			</g>
 			<g mask='url(#grad-mask)'>
 				<circle
-					class='pl__ring'
+					className='pl__ring'
 					cx='32'
 					cy='32'
 					r='26'
 					fill='none'
 					stroke='hsl(283,90%,55%)'
-					stroke-width='12'
-					stroke-dasharray='169.65 169.65'
-					stroke-dashoffset='-127.24'
-					stroke-linecap='round'
+					strokeWidth='12'
+					strokeDasharray='169.65 169.65'
+					strokeDashoffset='-127.24'
+					strokeLinecap='round'
 					transform='rotate(135)'
 				/>
 				<g fill='hsl(283,90%,55%)'>
 					<circle
-						class='pl__ball1'
+						className='pl__ball1'
 						cx='32'
 						cy='45'
 						r='6'
 						transform='rotate(14)'
 					/>
 					<circle
-						class='pl__ball2'
+						className='pl__ball2'
 						cx='32'
 						cy='48'
 						r='3'

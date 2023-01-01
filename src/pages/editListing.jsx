@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import {
 	getStorage,
@@ -8,19 +8,20 @@ import {
 } from 'firebase/storage'
 import { getAuth } from 'firebase/auth'
 import { v4 as uuidv4 } from 'uuid'
-import { addDoc, collection, serverTimestamp } from 'firebase/firestore'
+import { doc, getDoc, serverTimestamp, updateDoc } from 'firebase/firestore'
 import { db } from '../firebase'
-import { useNavigate } from 'react-router-dom'
-import { async } from '@firebase/util'
+import { useNavigate, useParams } from 'react-router-dom'
 
-export const CreateSel = () => {
+export const EditListing = () => {
 	const navigate = useNavigate()
 	const auth = getAuth()
 	// const [geolocationEnabled, setGeolocationEnabled] = useState(true)
 	const [loading, setLoading] = useState(false)
+	const [listing, setListing] = useState(null)
+
 	const [formData, setFormData] = useState({
 		type: 'rent',
-		name: 'Дом',
+		name: '',
 		bedrooms: 1,
 		bathrooms: 1,
 		parking: false,
@@ -50,6 +51,33 @@ export const CreateSel = () => {
 		// longitude,
 		images,
 	} = formData
+
+	const params = useParams()
+
+	useEffect(() => {
+		if (listing && listing.userRef !== auth.currentUser.uid) {
+			toast.error('вы не  можете вносить вносить изменения в данное объявление')
+			navigate('/')
+		}
+	}, [auth.currentUser.uid, listing, navigate])
+
+	useEffect(() => {
+		setLoading(true)
+		async function fetchListing() {
+			const docRef = doc(db, 'listings', params.listingId)
+			const docSnap = await getDoc(docRef)
+			if (docSnap.exists()) {
+				setListing(docSnap.data())
+				setFormData({ ...docSnap.data() })
+				setLoading(false)
+			} else {
+				navigate('/')
+				toast.error('Изменения не внесены')
+			}
+		}
+		fetchListing()
+	}, [navigate, params.listingId])
+
 	function onChange(e) {
 		let boolean = null
 		if (e.target.value === 'true') {
@@ -85,11 +113,6 @@ export const CreateSel = () => {
 			setLoading(false)
 			toast.error('Максимум 6 фото')
 			return
-		}
-
-		let geolocation = {
-			lat: 42.87134,
-			lng: 74.619064,
 		}
 
 		async function storeImage(image) {
@@ -132,7 +155,7 @@ export const CreateSel = () => {
 
 		const imgUrls = await Promise.all(
 			[...images].map(image => storeImage(image))
-		).catch(() => {
+		).catch(error => {
 			setLoading(false)
 			toast.error('Фото не загружено')
 			return
@@ -142,16 +165,17 @@ export const CreateSel = () => {
 			...formData,
 			imgUrls,
 			timestamp: serverTimestamp(),
-			geolocation,
 			userRef: auth.currentUser.uid,
 		}
 		delete formDataCopy.images
 		!formDataCopy.offer && delete formDataCopy.discountedPrice
-		// delete formDataCopy.latitude
-		// delete formDataCopy.longitude
-		const docRef = await addDoc(collection(db, 'listings'), formDataCopy)
+		delete formDataCopy.latitude
+		delete formDataCopy.longitude
+		const docRef = doc(db, 'listings', params.listingId)
+
+		await updateDoc(docRef, formDataCopy)
 		setLoading(false)
-		toast.success('Объявление создано')
+		toast.success('Изменения внесены')
 		navigate(`/category/${formDataCopy.type}/${docRef.id}`)
 	}
 
@@ -160,7 +184,7 @@ export const CreateSel = () => {
 	}
 	return (
 		<main>
-			<h1>Создайте обьявление</h1>
+			<h1>Измените обьявление</h1>
 			<form onSubmit={onSubmit}>
 				<p>Продажа / Аренда</p>
 				<div className='flex'>
@@ -197,12 +221,11 @@ export const CreateSel = () => {
 					id='name'
 					value={name}
 					onChange={onChange}
-					placeholder={`К примеру: Дом или Квартира `}
+					placeholder='К примеру: Дом'
 					maxLength='32'
 					minLength='3'
 					required
 				/>
-
 				<div className='bedAndBath'>
 					<div>
 						<p>Спален</p>
@@ -400,7 +423,7 @@ export const CreateSel = () => {
 					/>
 				</div>
 				<button type='submit' className='addSel'>
-					Создать обьявление
+					Внести изменения
 				</button>
 			</form>
 		</main>
