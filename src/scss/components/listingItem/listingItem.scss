@@ -1,0 +1,129 @@
+.listingItem {
+	background-color: #ffffff;
+	border-radius: 6.42424px;
+	margin: 10px;
+	max-width: 360px;
+	width: 100%;
+	@apply shadow-lg;
+	.image-scale {
+		display: inline-block;
+		overflow: hidden;
+		border-radius: 6.42424px 6.42424px 0px 0px;
+
+		.housePhoto {
+			width: 360px;
+			height: 240.91px;
+			border-radius: 6.42424px 6.42424px 0px 0px;
+			transition: 1s; /* Время эффекта */
+			display: block;
+		}
+		:hover {
+			transform: scale(1.09);
+		}
+	}
+
+	.information {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		padding: 10px;
+		margin: 5px;
+		gap: 10px;
+		font-size: 18px;
+		border-bottom: 0.5px solid rgb(208, 207, 207);
+		position: relative;
+		.type {
+			position: absolute;
+			top: -235px;
+			background-color: whitesmoke;
+			padding: 0px 5px;
+			border-radius: 5px;
+			align-items: center;
+			font-weight: 700;
+			.sale {
+				color: rgb(54, 166, 54);
+			}
+			.rent {
+				color: rgb(147, 36, 36);
+			}
+		}
+		.date {
+			display: flex;
+			align-items: center;
+			gap: 10px;
+			background-color: rgba(41, 41, 234, 0.347);
+			padding: 0px 5px;
+			border-radius: 5px;
+		}
+		.address {
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+		.tag {
+			font-size: 22px;
+			font-weight: 700;
+		}
+		.bedBath {
+			display: flex;
+			align-items: center;
+			gap: 18px;
+			color: $gray-color;
+			.bedrooms {
+				display: flex;
+				align-items: center;
+			}
+			.bathrooms {
+				display: flex;
+				align-items: center;
+			}
+		}
+		.price {
+			font-size: 20px;
+			color: $button-color;
+			font-weight: 700;
+			display: flex;
+			gap: 15px;
+			.totalPrice {
+				display: flex;
+				gap: 10px;
+			}
+			.oldPrice {
+				color: rgb(181, 74, 74);
+			}
+		}
+	}
+	.userInfo {
+		display: flex;
+		padding: 15px;
+		justify-content: space-between;
+		align-items: center;
+		margin: 5px;
+		.userName {
+			@apply flex items-center gap-2 text-[17px] font-semibold;
+			.userIcon {
+				@apply w-10 h-10 text-[#4a60a1];
+			}
+		}
+		.infoIcons {
+			@apply flex gap-3 items-center;
+			.edit {
+				@apply text-2xl text-gray-500 bg-[#EDEFF6] p-[3px] w-[30px] h-[30px] hover:text-blue-800 rounded-sm;
+			}
+			.trash {
+				@apply text-2xl text-gray-500 bg-[#EDEFF6] p-[3px]  w-[30px] h-[30px]  hover:text-red-600 rounded-sm;
+			}
+			.save {
+				justify-items: end;
+				align-items: center;
+				margin-bottom: 2px;
+				.likeOn {
+					@apply text-2xl bg-[#EDEFF6] p-[3px] w-[30px] h-[30px]  text-red-500 cursor-pointer rounded-sm;
+				}
+				.likeOff {
+					@apply text-2xl  bg-[#EDEFF6] p-[3px]  w-[30px] h-[30px]   text-gray-500 hover:text-red-600 cursor-pointer rounded-sm;
+				}
+			}
+		}
+	}
+}

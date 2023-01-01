@@ -1,8 +1,9 @@
 @import '../variables';
 .header {
 	display: flex;
-	background-color: rgb(228, 228, 228);
+	background-color: $bg-color;
 	width: 100%;
+	padding: 10px;
 	&-component {
 		display: flex;
 		align-items: center;
@@ -11,16 +12,25 @@
 		ul {
 			margin-right: 50px;
 			display: flex;
-			gap: 15px;
+			gap: 75px;
+			align-items: center;
 			li {
-				font-size: 18px;
+				font-size: 35px;
 				font-weight: 500;
 				button {
 					border-radius: 10px;
-					padding: 12px 5px;
+					padding: 15px;
+				}
+				.stateButton {
+					@apply text-[#2c3a61];
+				}
+				.activeButton {
+					@apply shadow-xl text-white bg-[#2c3a61] hover:text-[#2c3a61];
 				}
 				:hover {
 					border-bottom: #efeeed;
+					background-color: white;
+					color: $second-color;
 				}
 			}
 		}
@@ -56,6 +66,9 @@
 					color: black;
 				}
 			}
+		}
+		.about {
+			@apply mr-9 text-[#2c3a61] hover:text-indigo-700;
 		}
 	}
 }
