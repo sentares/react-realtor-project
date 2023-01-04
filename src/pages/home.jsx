@@ -1,10 +1,10 @@
-import React, { useContext } from 'react'
-import { OfferListingContext } from '../App'
+import { collection, getDocs, limit, orderBy, query } from 'firebase/firestore'
+import React, { useContext, useEffect, useState } from 'react'
+import { Slider } from '../components/home/slider'
 import { BlueZone } from '../components/homePage/BlueZone'
+import { db } from '../firebase'
 
 export const Home = () => {
-	const { offerListings } = useContext(OfferListingContext)
-	console.log(offerListings)
 	return (
 		<div className='homePage'>
 			<div className='container'>
@@ -36,7 +36,12 @@ export const Home = () => {
 				{/* синяя зона  */}
 				<BlueZone />
 				{/* свайпер */}
-				<section></section>
+				<section className='slider'>
+					<div className='content'>
+						<div className='name'>Рекоменации</div>
+						<Slider />
+					</div>
+				</section>
 			</div>
 		</div>
 	)

@@ -64,7 +64,7 @@ export const ListingItem = ({ listing, id, onEdit, onDelete }) => {
 						)}
 					</div>
 					<div className='price'>
-						<p className='totalPrice'>
+						<div className='totalPrice'>
 							$
 							{listing.offer
 								? listing.discountedPrice
@@ -84,7 +84,7 @@ export const ListingItem = ({ listing, id, onEdit, onDelete }) => {
 								</p>
 							)}
 							{listing.type === 'rent' && ' / месяц'}
-						</p>
+						</div>
 					</div>
 				</div>
 			</Link>

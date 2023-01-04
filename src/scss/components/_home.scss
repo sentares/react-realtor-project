@@ -109,5 +109,51 @@
 				}
 			}
 		}
+		.slider {
+			align-items: center;
+			justify-content: center;
+			display: flex;
+			margin-bottom: 100px;
+			.content {
+				.name {
+					font-size: 28px;
+					font-weight: 600;
+					margin-bottom: 30px;
+					align-items: center;
+					display: flex;
+					justify-content: center;
+				}
+				.swiperPh {
+					max-width: 1400px;
+					max-height: 400px;
+					.swiperSlidePh {
+						@apply relative overflow-hidden h-[400px] w-full rounded-2xl;
+						.info {
+							display: flex;
+							align-items: center;
+							position: absolute;
+							gap: px;
+							top: 10px;
+							left: 10px;
+							padding: 8px 10px;
+							border-radius: 10px;
+							background-color: white;
+							opacity: 0.8;
+							.text {
+								font-size: 22px;
+								font-weight: 600;
+								padding-right: 10px;
+								border-right: 2px solid $bg-color;
+							}
+							.price {
+								padding-left: 10px;
+								font-size: 22px;
+								font-weight: 600;
+							}
+						}
+					}
+				}
+			}
+		}
 	}
 }

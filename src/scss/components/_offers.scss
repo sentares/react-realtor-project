@@ -1,0 +1,146 @@
+@import '../variables.scss';
+
+.offers {
+	.offersPreview {
+		height: 240px;
+		.ph {
+			max-height: 240px;
+			height: 100%;
+			.previewPh {
+			}
+			.previewText {
+				display: flex;
+				margin-top: -132px;
+				color: white;
+				justify-content: center;
+				align-items: center;
+				font-size: 45px;
+				gap: 15px;
+			}
+		}
+	}
+	.options {
+		font-size: 18px;
+		max-width: 1152px;
+		margin: 30px auto;
+		.optionsBlock {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			.sortBlock {
+				display: flex;
+				align-items: center;
+				gap: 8px;
+				position: relative;
+				font-weight: 400;
+				.sortSet {
+				}
+				.sort__popup {
+					position: absolute;
+					left: 130px;
+					top: 30px;
+					background: #ffffff;
+					box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.282);
+					border-radius: 10px;
+					overflow: hidden;
+					padding: 10px 15px;
+					font-size: 17px;
+					align-items: center;
+					cursor: pointer;
+					ul {
+						li {
+							margin: 5px 2px;
+							padding: 5px 5px;
+						}
+						:hover {
+							background-color: #efeeed;
+							border-radius: 5px;
+							color: black;
+							@apply shadow-md;
+						}
+					}
+					.active {
+						background-color: $hover-button-color;
+						color: white;
+						border-radius: 5px;
+					}
+				}
+			}
+			.typeBlock {
+				display: flex;
+				align-items: center;
+				gap: 15px;
+				ul {
+					display: flex;
+					align-items: center;
+					gap: 15px;
+					li {
+						border-radius: 5px;
+						padding: 8px;
+						cursor: pointer;
+						@apply hover:bg-[#edeff6] hover:text-[#4a60a1];
+					}
+					.active {
+						@apply shadow-md;
+						font-weight: 600;
+						background-color: $button-color;
+						color: white;
+					}
+				}
+				div {
+					button {
+						border-radius: 5px;
+						padding: 0 10px;
+						letter-spacing: 0.5;
+						@apply hover:shadow-md;
+					}
+					.active {
+						@apply shadow-md;
+						font-weight: 600;
+					}
+				}
+			}
+		}
+		.discountBlock {
+			margin-top: 25px;
+			display: flex;
+			align-items: center;
+			gap: 25px;
+			ul {
+				display: flex;
+				align-items: center;
+				gap: 15px;
+				li {
+					border-radius: 5px;
+					padding: 8px;
+					cursor: pointer;
+					@apply hover:bg-[#edeff6] hover:text-[#4a60a1];
+				}
+				.active {
+					@apply shadow-md;
+					font-weight: 600;
+					background-color: $button-color;
+					color: white;
+				}
+			}
+		}
+	}
+	.mySel {
+		@apply mt-10 mx-auto flex items-center justify-center max-w-6xl;
+		h1 {
+			@apply text-4xl font-bold;
+		}
+		.selBlock {
+			@apply items-center justify-center;
+			.text {
+				@apply flex items-center justify-center;
+			}
+			.yourSel {
+				@apply flex mt-8;
+				.selHouse {
+					@apply flex flex-wrap;
+				}
+			}
+		}
+	}
+}

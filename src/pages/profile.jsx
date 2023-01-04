@@ -39,7 +39,7 @@ export const Profile = () => {
 			const q = query(
 				listingRef,
 				where('userRef', '==', auth.currentUser.uid),
-				orderBy('timestamp', 'desc')
+				orderBy('timestamp', 'desc', 'regularPrice', 'desc')
 			)
 			const querySnap = await getDocs(q)
 			let listings = []
