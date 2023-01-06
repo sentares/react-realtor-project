@@ -1,30 +1,49 @@
 import React, { useState } from 'react'
 import { BiCategory } from 'react-icons/bi'
 import { useDispatch, useSelector } from 'react-redux'
-import { setActiveSort } from '../../redux/slices/filterSlice'
+import {
+	setActiveDescAndAsc,
+	setActiveSort,
+} from '../../redux/slices/filterSlice'
+import { TbSortAscending2, TbSortDescending2 } from 'react-icons/tb'
 
 export const Sorting = ({
 	activeType,
 	onChangeActiveType,
 	activeOffer,
 	onChangeActiveOffer,
+	onChangeActiveTag,
 }) => {
 	const activeSort = useSelector(state => state.filter.activeSort)
+	const activeDescAndAsc = useSelector(state => state.filter.activeDescAndAsc)
+	const activeTag = useSelector(state => state.filter.activeTag)
 	const [opened, setOpened] = useState(false)
+	const [openedIcon, setOpenedIcon] = useState(false)
 
 	const setOpenedListItem = obj => {
 		dispatch(setActiveSort(obj))
 		setOpened(false)
 	}
 
+	const setOpenedIconItem = obj => {
+		dispatch(setActiveDescAndAsc(obj))
+		setOpenedIcon(false)
+	}
+
 	const dispatch = useDispatch()
 	const type = ['Все', 'Продажа', 'Аренда']
-	const offer = ['Все', 'Со скидкой', 'Без скидки']
+	const offer = ['Со скидкой', 'Без скидки']
+	const tag = ['Все', 'Дом', 'Квартира']
 
 	const sortList = [
 		{ name: 'Дате', sortProperty: 'timestamp' },
-		{ name: 'Цене', sortProperty: 'price' },
+		{ name: 'Цене', sortProperty: 'regularPrice' },
 		{ name: 'Площади', sortProperty: 'area' },
+	]
+
+	const iconList = [
+		{ icon: <TbSortDescending2 />, property: 'desc' },
+		{ icon: <TbSortAscending2 />, property: 'asc' },
 	]
 
 	return (
@@ -33,7 +52,9 @@ export const Sorting = ({
 				<div className='sortBlock'>
 					<BiCategory />
 					<div className='sortSet'>Сортировка по:</div>
-					<button onClick={() => setOpened(!opened)}>{activeSort.name}</button>
+					<button onClick={() => setOpened(!opened)} className='font-semibold'>
+						{activeSort.name}
+					</button>
 					{opened && (
 						<div className='sort__popup'>
 							<ul>
@@ -54,6 +75,32 @@ export const Sorting = ({
 						</div>
 					)}
 				</div>
+				<div className='sortIcons'>
+					<button
+						onClick={() => setOpenedIcon(!openedIcon)}
+						className='font-semibold'
+					>
+						{activeDescAndAsc.icon}
+					</button>
+					{openedIcon && (
+						<div className='sort__popup__icons'>
+							<ul>
+								{iconList.map((obj, i) => (
+									<li
+										key={i}
+										onClick={() => setOpenedIconItem(obj)}
+										className={
+											activeDescAndAsc.property === obj.property ? 'active' : ''
+										}
+									>
+										{obj.icon}
+									</li>
+								))}
+							</ul>
+						</div>
+					)}
+				</div>
+
 				<div className='typeBlock'>
 					<ul>
 						{type.map((value, i) => (
@@ -68,18 +115,33 @@ export const Sorting = ({
 					</ul>
 				</div>
 			</div>
-			<div className='discountBlock'>
-				<ul>
-					{offer.map((value, i) => (
-						<li
-							key={value}
-							className={activeOffer === i ? 'active' : ''}
-							onClick={() => onChangeActiveOffer(i)}
-						>
-							{value}
-						</li>
-					))}
-				</ul>
+			<div className='secondContainer'>
+				<div className='discountBlock'>
+					<ul>
+						{offer.map((value, i) => (
+							<li
+								key={value}
+								className={activeOffer === i ? 'active' : ''}
+								onClick={() => onChangeActiveOffer(i)}
+							>
+								{value}
+							</li>
+						))}
+					</ul>
+				</div>
+				<div className='tagBlock'>
+					<ul>
+						{tag.map((value, i) => (
+							<li
+								key={value}
+								className={activeTag === i ? 'active' : ''}
+								onClick={() => onChangeActiveTag(i)}
+							>
+								{value}
+							</li>
+						))}
+					</ul>
+				</div>
 			</div>
 		</section>
 	)

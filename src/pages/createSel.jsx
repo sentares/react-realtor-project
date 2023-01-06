@@ -11,7 +11,6 @@ import { v4 as uuidv4 } from 'uuid'
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore'
 import { db } from '../firebase'
 import { useNavigate } from 'react-router-dom'
-import { async } from '@firebase/util'
 
 export const CreateSel = () => {
 	const navigate = useNavigate()
@@ -23,6 +22,7 @@ export const CreateSel = () => {
 		name: 'Дом',
 		bedrooms: 1,
 		bathrooms: 1,
+		area: 1,
 		parking: false,
 		furnished: false,
 		address: '',
@@ -39,6 +39,7 @@ export const CreateSel = () => {
 		name,
 		bedrooms,
 		bathrooms,
+		area,
 		parking,
 		address,
 		furnished,
@@ -50,6 +51,7 @@ export const CreateSel = () => {
 		// longitude,
 		images,
 	} = formData
+
 	function onChange(e) {
 		let boolean = null
 		if (e.target.value === 'true') {
@@ -191,17 +193,33 @@ export const CreateSel = () => {
 						Аренда
 					</button>
 				</div>
-				<p>Добавьте Тэг</p>
-				<input
-					type='text'
-					id='name'
-					value={name}
-					onChange={onChange}
-					placeholder={`К примеру: Дом или Квартира `}
-					maxLength='32'
-					minLength='3'
-					required
-				/>
+				<p>Выберите Тэг</p>
+				<div className='flex'>
+					<button
+						type='button'
+						id='name'
+						value='Дом'
+						onClick={onChange}
+						className={` ${
+							name === 'Квартира'
+								? 'bg-white text-black'
+								: 'bg-[#2c3a61] text-white'
+						}`}
+					>
+						Дом
+					</button>
+					<button
+						type='button'
+						id='name'
+						value='Квартира'
+						onClick={onChange}
+						className={`${
+							name === 'Дом' ? 'bg-white text-black' : 'bg-[#2c3a61] text-white'
+						}`}
+					>
+						Квартира
+					</button>
+				</div>
 
 				<div className='bedAndBath'>
 					<div>
@@ -326,6 +344,17 @@ export const CreateSel = () => {
 					onChange={onChange}
 					placeholder='Опишите дом/квартиру'
 					required
+				/>
+				<p>Площадь м²</p>
+				<input
+					type='number'
+					id='area'
+					value={area}
+					onChange={onChange}
+					min='1'
+					max='50000'
+					required
+					className='numbers'
 				/>
 				<p>Cкидка</p>
 				<div className=' flex justify-between'>

@@ -5,6 +5,7 @@ import { AiFillHome } from 'react-icons/ai'
 import { MdSell } from 'react-icons/md'
 import { FaUserCircle } from 'react-icons/fa'
 import { GoSignIn } from 'react-icons/go'
+import { HiMail } from 'react-icons/hi'
 
 export const NavHeader = () => {
 	const location = useLocation()
@@ -53,6 +54,15 @@ export const NavHeader = () => {
 						}`}
 					>
 						<MdSell />
+					</button>
+				</li>
+				<li onClick={() => navigate('/message')}>
+					<button
+						className={`stateButton ${
+							pathMatchRoute('/message') && 'activeButton'
+						}`}
+					>
+						<HiMail />
 					</button>
 				</li>
 				<li onClick={() => navigate('/profile')}>

@@ -16,11 +16,13 @@ import {
 } from 'firebase/firestore'
 import { data } from 'autoprefixer'
 import { ListingItem } from '../components/listingItem/listingItem'
+import { Likes } from '../components/profile/likes'
 
 export const Profile = () => {
 	const [listings, setListings] = useState(null)
 	const [loading, setLoading] = useState(true)
 	const [open, setOpen] = useState(true)
+	const [openLikes, setOpenLikes] = useState(false)
 	const navigate = useNavigate()
 	const auth = getAuth()
 	const [formData, setFormData] = useState({
@@ -55,6 +57,11 @@ export const Profile = () => {
 		fetchUserSel()
 	}, [auth.currentUser.uid])
 
+	function openList() {
+		setOpen(!open)
+		setOpenLikes(!openLikes)
+	}
+
 	async function onDelete(listingID) {
 		if (window.confirm('Вы уверены что хотите удалить объявление?')) {
 			await deleteDoc(doc(db, 'listings', listingID))
@@ -81,15 +88,17 @@ export const Profile = () => {
 			</section>
 			<section className='navProfile'>
 				<div>
-					<button
-						onClick={() => setOpen(!open)}
-						className={open ? 'active' : ''}
-					>
+					<button onClick={() => openList()} className={open ? 'active' : ''}>
 						Мои объявления
 					</button>
 				</div>
 				<div>
-					<button>Понравившиеся</button>
+					<button
+						onClick={() => openList()}
+						className={openLikes ? 'active' : ''}
+					>
+						Понравившиеся
+					</button>
 				</div>
 				<div>
 					<button onClick={onLogOut}>Выйти с профиля</button>
@@ -108,7 +117,7 @@ export const Profile = () => {
 				</section>
 			)}
 
-			{open && !loading && listings.length > 0 && (
+			{open && !loading && listings.length > 0 ? (
 				<section className='mySel'>
 					<div className='selBlock'>
 						<div className='text'>
@@ -129,7 +138,14 @@ export const Profile = () => {
 						</div>
 					</div>
 				</section>
+			) : (
+				<div className='flex items-center justify-center mt-14 font-semibold text-4xl'>
+					<div className='text'>
+						<h1>Нет созданных объявлении...</h1>
+					</div>
+				</div>
 			)}
+			{openLikes && <Likes />}
 		</div>
 	)
 }

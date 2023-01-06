@@ -66,6 +66,45 @@
 					}
 				}
 			}
+			.sortIcons {
+				margin-left: -550px;
+				display: flex;
+				align-items: center;
+				gap: 8px;
+				position: relative;
+				font-weight: 400;
+				font-size: 24px;
+				.sort__popup__icons {
+					position: absolute;
+					left: 0px;
+					top: 30px;
+					background: #ffffff;
+					box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.282);
+					border-radius: 10px;
+					overflow: hidden;
+					padding: 10px 15px;
+					font-size: 17px;
+					align-items: center;
+					cursor: pointer;
+					ul {
+						li {
+							margin: 5px 2px;
+							padding: 5px 5px;
+						}
+						:hover {
+							background-color: #efeeed;
+							border-radius: 5px;
+							color: black;
+							@apply shadow-md;
+						}
+					}
+					.active {
+						background-color: $hover-button-color;
+						color: white;
+						border-radius: 5px;
+					}
+				}
+			}
 			.typeBlock {
 				display: flex;
 				align-items: center;
@@ -101,26 +140,53 @@
 				}
 			}
 		}
-		.discountBlock {
-			margin-top: 25px;
+		.secondContainer {
 			display: flex;
 			align-items: center;
-			gap: 25px;
-			ul {
+			gap: 235px;
+			.discountBlock {
+				margin-top: 25px;
 				display: flex;
 				align-items: center;
-				gap: 15px;
-				li {
-					border-radius: 5px;
-					padding: 8px;
-					cursor: pointer;
-					@apply hover:bg-[#edeff6] hover:text-[#4a60a1];
+				gap: 25px;
+				ul {
+					display: flex;
+					align-items: center;
+					gap: 15px;
+					li {
+						border-radius: 5px;
+						padding: 8px;
+						cursor: pointer;
+						@apply hover:bg-[#edeff6] hover:text-[#4a60a1];
+					}
+					.active {
+						@apply shadow-md;
+						font-weight: 600;
+						background-color: $button-color;
+						color: white;
+					}
 				}
-				.active {
-					@apply shadow-md;
-					font-weight: 600;
-					background-color: $button-color;
-					color: white;
+			}
+			.tagBlock {
+				display: flex;
+				align-items: center;
+				margin-top: 25px;
+				ul {
+					display: flex;
+					align-items: center;
+					gap: 15px;
+					li {
+						border-radius: 5px;
+						padding: 8px;
+						cursor: pointer;
+						@apply hover:bg-[#edeff6] hover:text-[#4a60a1];
+					}
+					.active {
+						@apply shadow-md;
+						font-weight: 600;
+						background-color: $button-color;
+						color: white;
+					}
 				}
 			}
 		}

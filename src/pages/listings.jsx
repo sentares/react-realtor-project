@@ -1,7 +1,7 @@
 import { getAuth } from 'firebase/auth'
-import { doc, getDoc } from 'firebase/firestore'
+import { addDoc, collection, doc, getDoc } from 'firebase/firestore'
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { db } from '../firebase'
 import { LoaderElement } from '../utils/loader/loader'
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -29,6 +29,7 @@ export const Listing = () => {
 	const [discountProfit, setDiscountProfit] = useState(false)
 	const [shareLinkCopied, setShareLinkCopied] = useState(false)
 
+	const navigate = useNavigate()
 	const auth = getAuth()
 	const params = useParams()
 	const [listing, setListing] = useState(null)
@@ -37,7 +38,6 @@ export const Listing = () => {
 	const [openMaps, setOpenMaps] = useState(false)
 
 	SwiperCore.use([Autoplay, Navigation, Pagination])
-	console.log(shareLinkCopied)
 
 	useEffect(() => {
 		async function fetchListing() {
@@ -58,6 +58,28 @@ export const Listing = () => {
 		((listing.discountedPrice - listing.regularPrice) / listing.regularPrice) *
 			100
 	)
+
+	// const likedListingId = listing.userRef
+	const handleAddToCart = () => {
+		// addToCart(listing)
+	}
+
+	// // Получаем id пользователя
+
+	// // отправляем id пользователя
+	// const addToCart = uid => {
+	// 	if (uid !== null) {
+	// 		const LikeData = {
+	// 			userId: uid,
+	// 		}
+	// 		try {
+	// 			const docRef = addDoc(collection(db, 'listings'), LikeData)
+	// 			console.log('все ок')
+	// 		} catch (e) {
+	// 			console.error('все не ок', e)
+	// 		}
+	// 	}
+	// }
 
 	return (
 		<div className='listingPage'>
@@ -163,19 +185,23 @@ export const Listing = () => {
 						)}
 					</div>
 					<ul>
-						<li>
+						<li className='flex justify-between'>
 							<div className='tag'>#{listing.name}</div>
+							<div className=' text-lg font-medium pr-2'>{listing.area}м²</div>
 						</li>
 						<li>
 							<div className='userAndLikes'>
 								<div className='user'>
 									<FaUserCircle className='iconPh' />
-									<Contact userRef={listing.userRef} listing={listing} />
+									<Contact userRef={listing.userRef} />
 								</div>
 								<div className='likes'>
 									<div
 										className='save'
-										onClick={() => setLikeButton(!likeButton)}
+										onClick={() => {
+											setLikeButton(!likeButton)
+											handleAddToCart()
+										}}
 									>
 										{likeButton === true ? (
 											<MdFavorite className='likeOn' />
@@ -183,7 +209,7 @@ export const Listing = () => {
 											<MdFavoriteBorder className='likeOff' />
 										)}
 									</div>
-									<div>
+									<div onClick={() => navigate('/message')}>
 										<HiOutlineChatAlt className='icon' />
 									</div>
 									<div>

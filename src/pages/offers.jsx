@@ -1,5 +1,6 @@
 import { type } from '@testing-library/user-event/dist/type'
 import {
+	addDoc,
 	collection,
 	getDoc,
 	getDocs,
@@ -13,20 +14,35 @@ import { useDispatch, useSelector } from 'react-redux'
 import { ListingItem } from '../components/listingItem/listingItem'
 import { Sorting } from '../components/offers/sorting'
 import { db } from '../firebase'
-import { setActiveOffer, setActiveType } from '../redux/slices/filterSlice'
+import {
+	setActiveOffer,
+	setActiveTag,
+	setActiveType,
+} from '../redux/slices/filterSlice'
+import { auth, getAuth } from 'firebase/auth'
+import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 export const Offers = () => {
 	const dispatch = useDispatch()
+	const navigate = useNavigate()
+
+	// const allListings = useSelector(state => state.listings.allListings)
 
 	const activeSort = useSelector(state => state.filter.activeSort)
 	const activeOffer = useSelector(state => state.filter.activeOffer)
 	const activeType = useSelector(state => state.filter.activeType)
+	const activeDescAndAsc = useSelector(state => state.filter.activeDescAndAsc)
+	const activeTag = useSelector(state => state.filter.activeTag)
 
 	const onChangeActiveType = id => {
 		dispatch(setActiveType(id))
 	}
 	const onChangeActiveOffer = id => {
 		dispatch(setActiveOffer(id))
+	}
+	const onChangeActiveTag = id => {
+		dispatch(setActiveTag(id))
 	}
 
 	let typeValue = trueType()
@@ -43,16 +59,42 @@ export const Offers = () => {
 	let offerValue = trueOffer()
 	function trueOffer() {
 		if (activeOffer === 0) {
-			return
-		} else if (activeOffer === 1) {
 			return true
 		} else {
 			return false
 		}
 	}
 
-	let sortValue = activeSort.sortProperty
-	console.log(sortValue)
+	let sortValue = trueSort()
+	function trueSort() {
+		if (activeSort.sortProperty === 'timestamp') {
+			return 'timestamp'
+		} else if (activeSort.sortProperty === 'regularPrice') {
+			return 'regularPrice'
+		} else if (activeSort.sortProperty === 'area') {
+			return 'area'
+		}
+	}
+
+	let sortIcon = trueIcon()
+	function trueIcon() {
+		if (activeDescAndAsc.property === 'desc') {
+			return 'desc'
+		} else {
+			return 'asc'
+		}
+	}
+
+	let tagValue = trueTag()
+	function trueTag() {
+		if (activeTag === 0) {
+			return ''
+		} else if (activeTag === 1) {
+			return 'Дом'
+		} else {
+			return 'Квартира'
+		}
+	}
 
 	const [loading, setLoading] = useState(true)
 	const [allListings, setAllListings] = useState(null)
@@ -65,8 +107,12 @@ export const Offers = () => {
 				const q = query(
 					listingsRef,
 					activeType > 0 && where('type', '==', typeValue),
-					activeOffer > 0 ? where('offer', '==', offerValue) : '',
-					orderBy('timestamp', 'desc')
+					activeTag
+						? where('name', '==', tagValue)
+						: where('offer', '==', offerValue),
+
+					activeOffer >= 0 && where('offer', '==', offerValue),
+					orderBy(sortValue, sortIcon)
 				)
 				const querySnap = await getDocs(q)
 				const listings = []
@@ -84,7 +130,7 @@ export const Offers = () => {
 			}
 		}
 		fetchListings()
-	}, [activeType, activeOffer, activeSort])
+	}, [activeType, activeOffer, activeSort, activeDescAndAsc, activeTag])
 
 	console.log(allListings)
 
@@ -104,13 +150,14 @@ export const Offers = () => {
 				activeOffer={activeOffer}
 				onChangeActiveType={onChangeActiveType}
 				onChangeActiveOffer={onChangeActiveOffer}
+				onChangeActiveTag={onChangeActiveTag}
 			/>
 			<section className='mySel'>
 				<div className='selBlock'>
 					<div className='text'>
 						<h1>Все объявления</h1>
 					</div>
-					{allListings && allListings.length > 0 && (
+					{allListings && allListings.length > 0 ? (
 						<div className='yourSel'>
 							<ul className='selHouse'>
 								{allListings.map(listing => (
@@ -121,6 +168,10 @@ export const Offers = () => {
 									/>
 								))}
 							</ul>
+						</div>
+					) : (
+						<div className='mt-14 text-2xl font-semibold'>
+							По таким критериям ничего не найдено(
 						</div>
 					)}
 				</div>

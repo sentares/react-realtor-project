@@ -21,9 +21,10 @@ export const EditListing = () => {
 
 	const [formData, setFormData] = useState({
 		type: 'rent',
-		name: '',
+		name: 'Дом',
 		bedrooms: 1,
 		bathrooms: 1,
+		area: 1,
 		parking: false,
 		furnished: false,
 		address: '',
@@ -40,6 +41,7 @@ export const EditListing = () => {
 		name,
 		bedrooms,
 		bathrooms,
+		area,
 		parking,
 		address,
 		furnished,
@@ -215,17 +217,33 @@ export const EditListing = () => {
 						Аренда
 					</button>
 				</div>
-				<p>Добавьте Тэг</p>
-				<input
-					type='text'
-					id='name'
-					value={name}
-					onChange={onChange}
-					placeholder='К примеру: Дом'
-					maxLength='32'
-					minLength='3'
-					required
-				/>
+				<p>Выберите Тэг</p>
+				<div className='flex'>
+					<button
+						type='button'
+						id='name'
+						value='Дом'
+						onClick={onChange}
+						className={` ${
+							name === 'Квартира'
+								? 'bg-white text-black'
+								: 'bg-[#2c3a61] text-white'
+						}`}
+					>
+						Дом
+					</button>
+					<button
+						type='button'
+						id='name'
+						value='Квартира'
+						onClick={onChange}
+						className={`${
+							name === 'Дом' ? 'bg-white text-black' : 'bg-[#2c3a61] text-white'
+						}`}
+					>
+						Квартира
+					</button>
+				</div>
 				<div className='bedAndBath'>
 					<div>
 						<p>Спален</p>
@@ -349,6 +367,17 @@ export const EditListing = () => {
 					onChange={onChange}
 					placeholder='Опишите дом/квартиру'
 					required
+				/>
+				<p>Площадь м²</p>
+				<input
+					type='number'
+					id='area'
+					value={area}
+					onChange={onChange}
+					min='1'
+					max='50000'
+					required
+					className='numbers'
 				/>
 				<p>Cкидка</p>
 				<div className=' flex justify-between'>

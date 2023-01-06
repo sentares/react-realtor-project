@@ -63,6 +63,8 @@
 		.tag {
 			font-size: 22px;
 			font-weight: 700;
+			display: flex;
+			align-items: center;
 		}
 		.bedBath {
 			display: flex;
@@ -76,6 +78,9 @@
 			.bathrooms {
 				display: flex;
 				align-items: center;
+			}
+			.area {
+				font-weight: 700;
 			}
 		}
 		.price {
