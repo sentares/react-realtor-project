@@ -14,9 +14,13 @@ import { Listing } from './pages/listings'
 import './scss/app.scss'
 import 'react-toastify/dist/ReactToastify.css'
 
-import { Message } from './pages/message'
+import { useContext } from 'react'
+import { AuthContext } from './context/authContext'
+import { Likes } from './pages/likes'
 
 function App() {
+	const { currentUser } = useContext(AuthContext)
+
 	return (
 		<>
 			<div className='wrapper'>
@@ -32,9 +36,10 @@ function App() {
 									path='/edit-listing/:listingId'
 									element={<EditListing />}
 								/>
-								<Route path='/message' element={<Message />} />
 							</Route>
 							<Route path='/offers' element={<Offers />} />
+							<Route path='/likes' element={<Likes />} />
+
 							<Route
 								path='/category/:categoryName/:listingId'
 								element={<Listing />}

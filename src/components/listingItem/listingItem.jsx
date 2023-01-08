@@ -1,51 +1,19 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState, useContext } from 'react'
 import Moment from 'react-moment'
 import { Link, useParams } from 'react-router-dom'
 import { FaMapMarkerAlt, FaUserCircle } from 'react-icons/fa'
 import { MdOutlineBed } from 'react-icons/md'
 import { BiBath } from 'react-icons/bi'
 import { FaParking } from 'react-icons/fa'
-import { MdFavoriteBorder } from 'react-icons/md'
-import { MdFavorite } from 'react-icons/md'
 import { HiTrash } from 'react-icons/hi'
 import { BiEdit } from 'react-icons/bi'
 import { Contact } from '../contact'
 import { RiShareLine } from 'react-icons/ri'
 import { toast } from 'react-toastify'
-import { getAuth } from 'firebase/auth'
-import { addDoc, collection, getDocs } from 'firebase/firestore'
-import { db } from '../../firebase'
 
 export const ListingItem = ({ listing, id, onEdit, onDelete }) => {
 	const [likeButton, setLikeButton] = useState(false)
 	const [shareLinkCopied, setShareLinkCopied] = useState(false)
-
-	const [uid, setUid] = useState(null)
-
-	// Получаем id пользователя
-
-	function GetUserUid() {
-		const auth = getAuth()
-		useEffect(() => {
-			auth.onAuthStateChanged(user => {
-				if (user) {
-					setUid(user.uid)
-				}
-			})
-		}, [])
-		return uid
-	}
-	const UserUid = GetUserUid()
-
-	const formData = {
-		userId: UserUid,
-		listingId: id,
-	}
-	// отправляем id пользователя
-	const addToCart = () => {
-		const docRef = addDoc(collection(db, 'likes'), formData)
-		toast.success('Объявление понравилось')
-	}
 
 	return (
 		<li className='listingItem'>
@@ -142,11 +110,11 @@ export const ListingItem = ({ listing, id, onEdit, onDelete }) => {
 								// handleAddToCart()
 							}}
 						>
-							{likeButton ? (
-								(addToCart(), (<MdFavorite className='likeOn' />))
+							{/* {likeButton ? (
+								<MdFavorite className='likeOn' />
 							) : (
 								<MdFavoriteBorder className='likeOff' />
-							)}
+							)} */}
 						</div>
 						<div className='shareIcon'>
 							<RiShareLine

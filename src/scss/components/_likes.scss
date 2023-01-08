@@ -1,0 +1,55 @@
+.likes {
+	.offersPreview {
+		height: 240px;
+		.ph {
+			max-height: 240px;
+			height: 100%;
+			.previewPh {
+			}
+			.previewText {
+				display: flex;
+				margin-top: -132px;
+				color: white;
+				justify-content: center;
+				align-items: center;
+				font-size: 45px;
+				gap: 15px;
+			}
+		}
+	}
+	.mySel {
+		@apply mt-10 mx-auto flex items-center justify-center max-w-6xl;
+		h1 {
+			@apply text-4xl font-bold;
+		}
+		.selBlock {
+			@apply items-center justify-center;
+			.text {
+				@apply flex items-center justify-center;
+			}
+			.yourSel {
+				@apply flex mt-8;
+				.selHouse {
+					@apply flex flex-wrap;
+				}
+			}
+		}
+	}
+	.register {
+		padding: 50px;
+		font-weight: 600;
+		font-size: 35px;
+		margin: 0px auto;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 20px;
+		button {
+			padding: 10px;
+			border-radius: 10px;
+			background-color: $button-color;
+			color: white;
+			@apply hover:bg-[#1d928c];
+		}
+	}
+}

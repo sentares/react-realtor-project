@@ -30,6 +30,7 @@ export const SignIn = () => {
 			)
 			if (userCredential.user) {
 				navigate('/')
+				toast.success('Добро пожаловать')
 			}
 		} catch (error) {
 			toast.error('Неправильные данные пользователя')

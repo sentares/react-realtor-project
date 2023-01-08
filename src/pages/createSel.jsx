@@ -33,6 +33,7 @@ export const CreateSel = () => {
 		// latitude: 0,
 		// longitude: 0,
 		images: {},
+		likes: [],
 	})
 	const {
 		type,
@@ -50,6 +51,7 @@ export const CreateSel = () => {
 		// latitude,
 		// longitude,
 		images,
+		likes,
 	} = formData
 
 	function onChange(e) {
@@ -146,6 +148,7 @@ export const CreateSel = () => {
 			timestamp: serverTimestamp(),
 			geolocation,
 			userRef: auth.currentUser.uid,
+			likes: [],
 		}
 		delete formDataCopy.images
 		!formDataCopy.offer && delete formDataCopy.discountedPrice

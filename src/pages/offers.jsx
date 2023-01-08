@@ -22,6 +22,7 @@ import {
 import { auth, getAuth } from 'firebase/auth'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
+import { useUserUid } from '../utils/hooks/userUid'
 
 export const Offers = () => {
 	const dispatch = useDispatch()
@@ -131,8 +132,6 @@ export const Offers = () => {
 		}
 		fetchListings()
 	}, [activeType, activeOffer, activeSort, activeDescAndAsc, activeTag])
-
-	console.log(allListings)
 
 	return (
 		<div className='offers'>

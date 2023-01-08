@@ -22,7 +22,6 @@ export const Profile = () => {
 	const [listings, setListings] = useState(null)
 	const [loading, setLoading] = useState(true)
 	const [open, setOpen] = useState(true)
-	const [openLikes, setOpenLikes] = useState(false)
 	const navigate = useNavigate()
 	const auth = getAuth()
 	const [formData, setFormData] = useState({
@@ -59,7 +58,6 @@ export const Profile = () => {
 
 	function openList() {
 		setOpen(!open)
-		setOpenLikes(!openLikes)
 	}
 
 	async function onDelete(listingID) {
@@ -90,14 +88,6 @@ export const Profile = () => {
 				<div>
 					<button onClick={() => openList()} className={open ? 'active' : ''}>
 						Мои объявления
-					</button>
-				</div>
-				<div>
-					<button
-						onClick={() => openList()}
-						className={openLikes ? 'active' : ''}
-					>
-						Понравившиеся
 					</button>
 				</div>
 				<div>
@@ -145,7 +135,6 @@ export const Profile = () => {
 					</div>
 				</div>
 			)}
-			{openLikes && <Likes />}
 		</div>
 	)
 }

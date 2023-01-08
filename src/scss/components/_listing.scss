@@ -141,8 +141,10 @@
 					.likes {
 						display: flex;
 						align-items: center;
-						gap: 13px;
+						gap: 15px;
 						.save {
+							display: flex;
+							gap: 5px;
 							align-items: center;
 							margin-bottom: 2px;
 							border-radius: 3px;
@@ -151,6 +153,9 @@
 							}
 							.likeOff {
 								@apply text-2xl  bg-[#EDEFF6] p-[3px] w-7 h-7  text-[#4a60a1] hover:text-red-600 cursor-pointer rounded-sm;
+							}
+							.commentOff {
+								@apply text-2xl  bg-[#EDEFF6] p-[3px] w-7 h-7  text-[#4a60a1] hover:text-[#5d7ac9] cursor-pointer;
 							}
 						}
 						.icon {
@@ -178,6 +183,90 @@
 			}
 			.messageUser {
 				@apply px-7 py-3 bg-[#4a60a1] text-white font-medium text-sm uppercase rounded shadow-md hover:bg-[#2c3a61] hover:shadow-lg focus:bg-[#2c3a61] focus:shadow-lg w-full text-center transition duration-150 ease-in-out;
+			}
+
+			.comments {
+				.addComment {
+					border-radius: 5px;
+					padding: 10px;
+					font-size: 25px;
+					margin: 15px 0;
+					@apply shadow-lg;
+					.newComment {
+						display: flex;
+						align-items: center;
+						justify-content: space-between;
+						.textWrite {
+							max-width: 500px;
+							padding: 5px;
+							input {
+								font-size: 20px;
+								border-radius: 5px;
+								padding: 5px;
+								width: 460px;
+								background-color: $bg-color;
+							}
+						}
+						.addButton {
+							padding: 5px;
+							button {
+								font-size: 32px;
+								padding: 5px;
+								border-radius: 5px;
+								background-color: $hover-button-color;
+								color: white;
+							}
+							:hover {
+								background-color: $click-button-color;
+							}
+						}
+					}
+				}
+				.allComments {
+					border-radius: 5px;
+					padding: 10px;
+					font-size: 25px;
+					margin: 15px 0;
+					@apply shadow-lg;
+					.userComment {
+						.userInfo {
+							justify-content: space-between;
+							display: flex;
+							align-items: center;
+							color: $hover-button-color;
+							.user {
+								display: flex;
+								align-items: center;
+								gap: 5px;
+								.userIcon {
+									font-size: 32px;
+								}
+							}
+							.data {
+								font-size: 16px;
+								color: $none-color;
+							}
+						}
+						.textBlock {
+							display: flex;
+							align-items: center;
+							justify-content: space-between;
+							.text {
+								margin-top: 5px;
+								padding: 10px;
+								font-size: 18px;
+								color: $gray-color;
+							}
+							.trash {
+								color: $second-color;
+								font-size: 22px;
+								padding-right: 5px;
+								cursor: pointer;
+								@apply hover:text-red-700;
+							}
+						}
+					}
+				}
 			}
 		}
 	}

@@ -12,6 +12,7 @@ import { serverTimestamp, setDoc, doc } from 'firebase/firestore'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { GoogleAuth } from '../components/auth/googleAuth'
+import { useUserUid } from '../utils/hooks/userUid'
 
 export const SignUp = () => {
 	const navigate = useNavigate()
@@ -44,7 +45,9 @@ export const SignUp = () => {
 			const formDataCopy = { ...formData }
 			delete formDataCopy.password
 			formDataCopy.timestamp = serverTimestamp()
+			formDataCopy.uid = user.uid
 			await setDoc(doc(db, 'users', user.uid), formDataCopy)
+
 			toast.success('регистрация прошла успешно!')
 			navigate('/')
 		} catch (error) {
