@@ -1,44 +1,19 @@
-import { collection, getDocs, orderBy, query } from 'firebase/firestore'
-import React, { useContext, useEffect, useState } from 'react'
+import React from 'react'
 import { FaHeart } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
-import { LikeListingItem } from '../components/likesListing/likeListingItem'
-import { AuthContext } from '../context/authContext'
-import { db } from '../firebase'
+import { LikeListingItem } from '../components/listingItem/likeListingItem'
+
+import { useAllListings } from '../utils/hooks/useAllListings'
 import { useAuthStatus } from '../utils/hooks/useAuthStatus'
+import { LoaderElement } from '../utils/loader/loader'
 
 export const Likes = () => {
 	const isUserAuth = useAuthStatus()
 	const res = isUserAuth.loggedIn
 
-	const [loading, setLoading] = useState(true)
-	const [allListings, setAllListings] = useState(null)
+	const { allListings, loading } = useAllListings()
 
-	useEffect(() => {
-		async function fetchListings() {
-			try {
-				const listingsRef = collection(db, 'listings')
-
-				const q = query(listingsRef, orderBy('timestamp', 'asc'))
-				const querySnap = await getDocs(q)
-				const listings = []
-
-				querySnap.forEach(doc => {
-					return listings.push({
-						id: doc.id,
-						data: doc.data(),
-					})
-				})
-				setAllListings(listings)
-				setLoading(false)
-			} catch (error) {
-				console.log(error)
-			}
-		}
-		fetchListings()
-	}, [])
-
-	return (
+	return !loading ? (
 		<div className='likes'>
 			<section className='offersPreview'>
 				<div className='ph'>
@@ -48,31 +23,34 @@ export const Likes = () => {
 						Вам понравилось
 					</div>
 				</div>
-
 				{res ? (
 					<div className='mySel'>
-						<div className='selBlock'>
-							<div className='text'>
-								<h1>Все объявления</h1>
+						{!loading ? (
+							<div className='selBlock'>
+								<div className='text'>
+									<h1>Все объявления</h1>
+								</div>
+								{allListings && allListings.length > 0 ? (
+									<div className='yourSel'>
+										<ul className='selHouse'>
+											{allListings.map(listing => (
+												<LikeListingItem
+													key={listing.id}
+													listing={listing.data}
+													id={listing.id}
+												/>
+											))}
+										</ul>
+									</div>
+								) : (
+									<div className='mt-14 text-2xl font-semibold'>
+										По таким критериям ничего не найдено(
+									</div>
+								)}
 							</div>
-							{allListings && allListings.length > 0 ? (
-								<div className='yourSel'>
-									<ul className='selHouse'>
-										{allListings.map(listing => (
-											<LikeListingItem
-												key={listing.id}
-												listing={listing.data}
-												id={listing.id}
-											/>
-										))}
-									</ul>
-								</div>
-							) : (
-								<div className='mt-14 text-2xl font-semibold'>
-									По таким критериям ничего не найдено(
-								</div>
-							)}
-						</div>
+						) : (
+							<LoaderElement />
+						)}
 					</div>
 				) : (
 					<div className='register'>
@@ -85,6 +63,10 @@ export const Likes = () => {
 					</div>
 				)}
 			</section>
+		</div>
+	) : (
+		<div>
+			<LoaderElement />
 		</div>
 	)
 }

@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
 import { AiFillHome } from 'react-icons/ai'
 import { MdSell } from 'react-icons/md'
-import { FaHeart, FaUserCircle } from 'react-icons/fa'
+import { FaHeart, FaSearch, FaUserCircle } from 'react-icons/fa'
 import { GoSignIn } from 'react-icons/go'
 
 export const NavHeader = () => {
@@ -55,6 +55,15 @@ export const NavHeader = () => {
 						<MdSell />
 					</button>
 				</li>
+				<li onClick={() => navigate('/search')}>
+					<button
+						className={`stateButton ${
+							pathMatchRoute('/search') && 'activeButton'
+						}`}
+					>
+						<FaSearch />
+					</button>
+				</li>
 				<li onClick={() => navigate('/likes')}>
 					<button
 						className={`stateButton ${
@@ -64,6 +73,7 @@ export const NavHeader = () => {
 						<FaHeart />
 					</button>
 				</li>
+
 				<li onClick={() => navigate('/profile')}>
 					<button
 						className={`stateButton ${

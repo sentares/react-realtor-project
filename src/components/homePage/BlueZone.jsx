@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 export const BlueZone = () => {
 	return (
@@ -13,9 +14,11 @@ export const BlueZone = () => {
 							<img src='/assets/svg/63-home 1.svg' alt='' />
 						</div>
 						<div className='text'>
-							<div className='nameText'>Продать</div>
-							<div>Поможем найти клиента...</div>
-							<div className='next'>Читать дальше</div>
+							<Link to={'/offers'}>
+								<div className='nameText'>Продать</div>
+								<div>Поможем найти клиента...</div>
+								<div className='next'>Читать дальше</div>
+							</Link>
 						</div>
 					</div>
 					<div className='blog'>
@@ -23,9 +26,11 @@ export const BlueZone = () => {
 							<img src='/assets/svg/rent.svg' alt='' />
 						</div>
 						<div className='text'>
-							<div className='nameText'>Сдать</div>
-							<div>Поможем найти клиента...</div>
-							<div className='next'>Читать дальше</div>
+							<Link to={'/offers'}>
+								<div className='nameText'>Сдать</div>
+								<div>Поможем найти клиента...</div>
+								<div className='next'>Читать дальше</div>
+							</Link>
 						</div>
 					</div>
 					<div className='blog'>
@@ -33,9 +38,11 @@ export const BlueZone = () => {
 							<img src='/assets/svg/buy.svg' alt='' />
 						</div>
 						<div className='text'>
-							<div className='nameText'>Купить</div>
-							<div>Поможем найти клиента...</div>
-							<div className='next'>Читать дальше</div>
+							<Link to={'/offers'}>
+								<div className='nameText'>Купить</div>
+								<div>Поможем найти клиента...</div>
+								<div className='next'>Читать дальше</div>
+							</Link>
 						</div>
 					</div>
 				</div>

@@ -118,13 +118,21 @@
 			.trash {
 				@apply text-2xl text-gray-500 bg-[#EDEFF6] p-[3px]  w-[30px] h-[30px]  hover:text-red-600 rounded-sm;
 			}
+			.countLikes {
+				margin-right: 5px;
+				font-size: 18px;
+				font-weight: 600;
+			}
 			.save {
+				display: flex;
 				justify-items: end;
 				align-items: center;
 				margin-bottom: 2px;
+
 				.likeOn {
 					@apply text-2xl bg-[#EDEFF6] p-[3px] w-[30px] h-[30px]  text-red-500 cursor-pointer rounded-sm;
 				}
+
 				.likeOff {
 					@apply text-2xl  bg-[#EDEFF6] p-[3px]  w-[30px] h-[30px]   text-gray-500 hover:text-red-600 cursor-pointer rounded-sm;
 				}

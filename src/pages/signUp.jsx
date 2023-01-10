@@ -12,7 +12,6 @@ import { serverTimestamp, setDoc, doc } from 'firebase/firestore'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { GoogleAuth } from '../components/auth/googleAuth'
-import { useUserUid } from '../utils/hooks/userUid'
 
 export const SignUp = () => {
 	const navigate = useNavigate()

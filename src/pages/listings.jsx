@@ -1,7 +1,6 @@
-import { getAuth } from 'firebase/auth'
 import { doc, getDoc } from 'firebase/firestore'
-import React, { useContext, useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { Link, useParams } from 'react-router-dom'
 import { db } from '../firebase'
 import { LoaderElement } from '../utils/loader/loader'
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -11,18 +10,15 @@ import SwiperCore, {
 	Navigation,
 	Pagination,
 } from 'swiper'
-import 'swiper/css/bundle'
-import { MdFavorite, MdFavoriteBorder, MdOutlineBed } from 'react-icons/md'
-import { BiBath } from 'react-icons/bi'
-import { FaMapMarkerAlt, FaParking, FaUserCircle } from 'react-icons/fa'
-import { TbParkingOff } from 'react-icons/tb'
-
+import { FaMapMarkerAlt, FaUserCircle } from 'react-icons/fa'
 import { IoMdPricetag } from 'react-icons/io'
-import { GiSofa } from 'react-icons/gi'
 import { Contact } from '../components/contact'
 import { Maps } from '../components/Maps/maps'
 import { Actions } from '../components/listings/actions'
 import { Comments } from '../components/listings/comments/comments'
+import { ShortInfoBlock } from '../components/listings/blocks/shortInfoBlock'
+import 'swiper/css/bundle'
+import { RiWhatsappFill } from 'react-icons/ri'
 
 export const Listing = () => {
 	const [discountProfit, setDiscountProfit] = useState(false)
@@ -32,6 +28,7 @@ export const Listing = () => {
 	const [loading, setLoading] = useState(true)
 	const [openMaps, setOpenMaps] = useState(false)
 	const [id, setHouseId] = useState(null)
+	const [userNumber, setUserNumber] = useState(false)
 
 	SwiperCore.use([Autoplay, Navigation, Pagination])
 
@@ -119,37 +116,7 @@ export const Listing = () => {
 						{listing.type === 'rent' && ' / месяц'}
 					</div>
 				</div>
-				<div className='shortInfo'>
-					<div className='infoElements shadow-xl'>
-						<div className='infoBlock'>
-							{listing.furnished ? (
-								<div className='sofa'>
-									<GiSofa />
-								</div>
-							) : (
-								<div className='noSofa'>
-									<GiSofa />
-								</div>
-							)}
-							<div className='beds'>
-								<MdOutlineBed /> {listing.bedrooms}
-							</div>
-							<div>
-								<BiBath />
-								{listing.bathrooms}
-							</div>
-							{listing.parking ? (
-								<div className='parking'>
-									<FaParking />
-								</div>
-							) : (
-								<div className='parking'>
-									<TbParkingOff />
-								</div>
-							)}
-						</div>
-					</div>
-				</div>
+				<ShortInfoBlock listing={listing} />
 			</section>
 
 			<section className='textInfo'>
@@ -168,9 +135,19 @@ export const Listing = () => {
 						</li>
 						<li>
 							<div className='userAndLikes'>
-								<div className='user'>
+								<div
+									className='user'
+									onClick={() => setUserNumber(!userNumber)}
+								>
 									<FaUserCircle className='iconPh' />
-									<Contact userRef={listing.userRef} />
+									{userNumber ? (
+										<div className='phoneNumber'>
+											{listing.phoneNumber}
+											<RiWhatsappFill className=' text-2xl' />
+										</div>
+									) : (
+										<Contact userRef={listing.userRef} />
+									)}
 								</div>
 								<Actions listing={listing} likes={likes} id={id} />
 							</div>

@@ -121,12 +121,12 @@
 					font-weight: 700;
 				}
 				.userAndLikes {
+					margin-top: 15px;
 					width: 540px;
 					display: flex;
 					justify-content: space-between;
 					align-items: center;
 					.user {
-						margin-top: 15px;
 						font-size: 17px;
 						display: flex;
 						align-items: center;
@@ -136,6 +136,25 @@
 							height: 50px;
 							color: $button-color;
 							cursor: pointer;
+							@apply hover:text-green-700;
+						}
+						.phoneNumber {
+							display: flex;
+							cursor: pointer;
+							align-items: center;
+							gap: 4px;
+							font-size: 24px;
+							font-weight: 500;
+							letter-spacing: 0.8px;
+							color: $hover-button-color;
+						}
+						.contactInfo {
+							cursor: pointer;
+							font-size: 18px;
+							font-weight: 400;
+							padding: 5px;
+							border-radius: 5px;
+							@apply hover:bg-[#4a60a1] hover:text-white active:bg-[#115d59];
 						}
 					}
 					.likes {

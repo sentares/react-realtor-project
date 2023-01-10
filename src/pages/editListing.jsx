@@ -11,6 +11,7 @@ import { v4 as uuidv4 } from 'uuid'
 import { doc, getDoc, serverTimestamp, updateDoc } from 'firebase/firestore'
 import { db } from '../firebase'
 import { useNavigate, useParams } from 'react-router-dom'
+import { LoaderElement } from '../utils/loader/loader'
 
 export const EditListing = () => {
 	const navigate = useNavigate()
@@ -35,6 +36,7 @@ export const EditListing = () => {
 		// latitude: 0,
 		// longitude: 0,
 		images: {},
+		phoneNumber: 0,
 	})
 	const {
 		type,
@@ -52,13 +54,14 @@ export const EditListing = () => {
 		// latitude,
 		// longitude,
 		images,
+		phoneNumber,
 	} = formData
 
 	const params = useParams()
 
 	useEffect(() => {
 		if (listing && listing.userRef !== auth.currentUser.uid) {
-			toast.error('вы не  можете вносить вносить изменения в данное объявление')
+			toast.error('вы не можете вносить вносить изменения в данное объявление')
 			navigate('/')
 		}
 	}, [auth.currentUser.uid, listing, navigate])
@@ -182,7 +185,7 @@ export const EditListing = () => {
 	}
 
 	if (loading) {
-		return 'loading'
+		return <LoaderElement />
 	}
 	return (
 		<main>
@@ -331,34 +334,6 @@ export const EditListing = () => {
 					placeholder='Адрес'
 					required
 				/>
-				{/* {!geolocationEnabled && (
-					<div className='flex space-x-6 justify-start mb-6'>
-						<div className=''>
-							<p>Широта</p>
-							<input
-								type='number'
-								id='latitude'
-								value={latitude}
-								onChange={onChange}
-								required
-								min='-90'
-								max='90'
-							/>
-						</div>
-						<div className=''>
-							<p>Долгота</p>
-							<input
-								type='number'
-								id='longitude'
-								value={longitude}
-								onChange={onChange}
-								required
-								min='-180'
-								max='180'
-							/>
-						</div>
-					</div>
-				)}  */}
 				<p>Описание</p>
 				<textarea
 					type='text'
@@ -378,6 +353,15 @@ export const EditListing = () => {
 					max='50000'
 					required
 					className='numbers'
+				/>
+				<p>Ваш номер телефона</p>
+				<input
+					type='number'
+					id='phoneNumber'
+					value={phoneNumber}
+					onChange={onChange}
+					placeholder='0700-700-700'
+					required
 				/>
 				<p>Cкидка</p>
 				<div className=' flex justify-between'>

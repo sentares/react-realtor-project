@@ -11,6 +11,7 @@ import { v4 as uuidv4 } from 'uuid'
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore'
 import { db } from '../firebase'
 import { useNavigate } from 'react-router-dom'
+import { LoaderElement } from '../utils/loader/loader'
 
 export const CreateSel = () => {
 	const navigate = useNavigate()
@@ -34,6 +35,7 @@ export const CreateSel = () => {
 		// longitude: 0,
 		images: {},
 		likes: [],
+		phoneNumber: 0,
 	})
 	const {
 		type,
@@ -52,6 +54,7 @@ export const CreateSel = () => {
 		// longitude,
 		images,
 		likes,
+		phoneNumber,
 	} = formData
 
 	function onChange(e) {
@@ -161,7 +164,7 @@ export const CreateSel = () => {
 	}
 
 	if (loading) {
-		return 'loading'
+		return <LoaderElement />
 	}
 	return (
 		<main>
@@ -311,34 +314,6 @@ export const CreateSel = () => {
 					placeholder='Адрес'
 					required
 				/>
-				{/* {!geolocationEnabled && (
-					<div className='flex space-x-6 justify-start mb-6'>
-						<div className=''>
-							<p>Широта</p>
-							<input
-								type='number'
-								id='latitude'
-								value={latitude}
-								onChange={onChange}
-								required
-								min='-90'
-								max='90'
-							/>
-						</div>
-						<div className=''>
-							<p>Долгота</p>
-							<input
-								type='number'
-								id='longitude'
-								value={longitude}
-								onChange={onChange}
-								required
-								min='-180'
-								max='180'
-							/>
-						</div>
-					</div>
-				)}  */}
 				<p>Описание</p>
 				<textarea
 					type='text'
@@ -358,6 +333,15 @@ export const CreateSel = () => {
 					max='50000'
 					required
 					className='numbers'
+				/>
+				<p>Ваш номер телефона</p>
+				<input
+					type='number'
+					id='phoneNumber'
+					value={phoneNumber}
+					onChange={onChange}
+					placeholder='+996-700-700-700'
+					required
 				/>
 				<p>Cкидка</p>
 				<div className=' flex justify-between'>

@@ -1,13 +1,4 @@
-import { type } from '@testing-library/user-event/dist/type'
-import {
-	addDoc,
-	collection,
-	getDoc,
-	getDocs,
-	orderBy,
-	query,
-	where,
-} from 'firebase/firestore'
+import { collection, getDocs, orderBy, query, where } from 'firebase/firestore'
 import React, { useEffect, useState } from 'react'
 import { MdSell } from 'react-icons/md'
 import { useDispatch, useSelector } from 'react-redux'
@@ -19,16 +10,10 @@ import {
 	setActiveTag,
 	setActiveType,
 } from '../redux/slices/filterSlice'
-import { auth, getAuth } from 'firebase/auth'
-import { useNavigate } from 'react-router-dom'
-import { toast } from 'react-toastify'
-import { useUserUid } from '../utils/hooks/userUid'
+import { LoaderElement } from '../utils/loader/loader'
 
 export const Offers = () => {
 	const dispatch = useDispatch()
-	const navigate = useNavigate()
-
-	// const allListings = useSelector(state => state.listings.allListings)
 
 	const activeSort = useSelector(state => state.filter.activeSort)
 	const activeOffer = useSelector(state => state.filter.activeOffer)
@@ -108,11 +93,11 @@ export const Offers = () => {
 				const q = query(
 					listingsRef,
 					activeType > 0 && where('type', '==', typeValue),
+
+					activeOffer >= 0 && where('offer', '==', offerValue),
 					activeTag
 						? where('name', '==', tagValue)
 						: where('offer', '==', offerValue),
-
-					activeOffer >= 0 && where('offer', '==', offerValue),
 					orderBy(sortValue, sortIcon)
 				)
 				const querySnap = await getDocs(q)
@@ -133,7 +118,7 @@ export const Offers = () => {
 		fetchListings()
 	}, [activeType, activeOffer, activeSort, activeDescAndAsc, activeTag])
 
-	return (
+	return !loading ? (
 		<div className='offers'>
 			<section className='offersPreview'>
 				<div className='ph'>
@@ -151,6 +136,7 @@ export const Offers = () => {
 				onChangeActiveOffer={onChangeActiveOffer}
 				onChangeActiveTag={onChangeActiveTag}
 			/>
+
 			<section className='mySel'>
 				<div className='selBlock'>
 					<div className='text'>
@@ -175,6 +161,10 @@ export const Offers = () => {
 					)}
 				</div>
 			</section>
+		</div>
+	) : (
+		<div>
+			<LoaderElement />
 		</div>
 	)
 }

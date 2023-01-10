@@ -1,8 +1,8 @@
 import React, { useState, useContext } from 'react'
 import Moment from 'react-moment'
-import { Link, useParams } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { FaMapMarkerAlt, FaUserCircle } from 'react-icons/fa'
-import { MdOutlineBed } from 'react-icons/md'
+import { MdFavorite, MdFavoriteBorder, MdOutlineBed } from 'react-icons/md'
 import { BiBath } from 'react-icons/bi'
 import { FaParking } from 'react-icons/fa'
 import { HiTrash } from 'react-icons/hi'
@@ -10,10 +10,22 @@ import { BiEdit } from 'react-icons/bi'
 import { Contact } from '../contact'
 import { RiShareLine } from 'react-icons/ri'
 import { toast } from 'react-toastify'
+import { AuthContext } from '../../context/authContext'
+import { useToggleLike } from '../../utils/hooks/likes/useLike'
 
 export const ListingItem = ({ listing, id, onEdit, onDelete }) => {
-	const [likeButton, setLikeButton] = useState(false)
 	const [shareLinkCopied, setShareLinkCopied] = useState(false)
+	const { currentUser } = useContext(AuthContext)
+
+	const { likes } = listing
+
+	const isLiked = likes.includes(currentUser?.uid)
+	const config = {
+		id,
+		isLiked,
+		uid: currentUser?.uid,
+	}
+	const { toggleLike, isLoading: likeLoading } = useToggleLike(config)
 
 	return (
 		<li className='listingItem'>
@@ -103,18 +115,13 @@ export const ListingItem = ({ listing, id, onEdit, onDelete }) => {
 					</>
 				) : (
 					<div className='infoIcons'>
-						<div
-							className='save'
-							onClick={() => {
-								setLikeButton(!likeButton)
-								// handleAddToCart()
-							}}
-						>
-							{/* {likeButton ? (
+						<div className='save' onClick={() => toggleLike()}>
+							<div className='countLikes'>{listing.likes.length}</div>
+							{isLiked ? (
 								<MdFavorite className='likeOn' />
 							) : (
 								<MdFavoriteBorder className='likeOff' />
-							)} */}
+							)}
 						</div>
 						<div className='shareIcon'>
 							<RiShareLine

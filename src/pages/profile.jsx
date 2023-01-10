@@ -14,9 +14,8 @@ import {
 	query,
 	where,
 } from 'firebase/firestore'
-import { data } from 'autoprefixer'
 import { ListingItem } from '../components/listingItem/listingItem'
-import { Likes } from '../components/profile/likes'
+import { LoaderElement } from '../utils/loader/loader'
 
 export const Profile = () => {
 	const [listings, setListings] = useState(null)
@@ -24,11 +23,11 @@ export const Profile = () => {
 	const [open, setOpen] = useState(true)
 	const navigate = useNavigate()
 	const auth = getAuth()
-	const [formData, setFormData] = useState({
+	const formData = {
 		name: auth.currentUser.displayName,
 		email: auth.currentUser.email,
-	})
-	const { name, email } = formData
+	}
+	const { name } = formData
 
 	function onLogOut() {
 		auth.signOut()
@@ -73,7 +72,7 @@ export const Profile = () => {
 	function onEdit(listingID) {
 		navigate(`/edit-listing/${listingID}`)
 	}
-	return (
+	return !loading ? (
 		<div className='profile'>
 			<section className='profile_userData'>
 				<div className='userDataContent'>
@@ -135,6 +134,10 @@ export const Profile = () => {
 					</div>
 				</div>
 			)}
+		</div>
+	) : (
+		<div>
+			<LoaderElement />
 		</div>
 	)
 }

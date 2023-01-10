@@ -17,6 +17,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import { useContext } from 'react'
 import { AuthContext } from './context/authContext'
 import { Likes } from './pages/likes'
+import { Search } from './pages/search'
 
 function App() {
 	const { currentUser } = useContext(AuthContext)
@@ -39,7 +40,7 @@ function App() {
 							</Route>
 							<Route path='/offers' element={<Offers />} />
 							<Route path='/likes' element={<Likes />} />
-
+							<Route path='search' element={<Search />} />
 							<Route
 								path='/category/:categoryName/:listingId'
 								element={<Listing />}

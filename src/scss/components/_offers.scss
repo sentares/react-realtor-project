@@ -22,12 +22,15 @@
 	.options {
 		font-size: 18px;
 		max-width: 1152px;
-		margin: 30px auto;
+		margin: -15px auto 10px auto;
 		.optionsBlock {
+			position: relative;
 			display: flex;
 			align-items: center;
 			justify-content: space-between;
 			.sortBlock {
+				max-width: 350px;
+				width: 100%;
 				display: flex;
 				align-items: center;
 				gap: 8px;
@@ -36,6 +39,7 @@
 				.sortSet {
 				}
 				.sort__popup {
+					z-index: 5;
 					position: absolute;
 					left: 130px;
 					top: 30px;
@@ -67,7 +71,9 @@
 				}
 			}
 			.sortIcons {
-				margin-left: -550px;
+				margin-left: 50px;
+				max-width: 30px;
+				width: 100%;
 				display: flex;
 				align-items: center;
 				gap: 8px;
@@ -102,6 +108,15 @@
 						background-color: $hover-button-color;
 						color: white;
 						border-radius: 5px;
+					}
+				}
+			}
+			.bedAndBath {
+				@apply flex justify-start gap-6 ml-[-25px];
+				div {
+					@apply flex items-center gap-3;
+					.numbers {
+						@apply bg-gray-200 px-1 py-2 text-lg text-gray-700  border border-gray-300 rounded transition duration-150 ease-in-out focus:text-gray-700 focus:bg-white focus:border-slate-600 text-center;
 					}
 				}
 			}
@@ -190,16 +205,37 @@
 				}
 			}
 		}
+		.choseBlock {
+			@apply flex mt-6 p-2 rounded-lg bg-[#2c3a61] text-white max-w-[600px] shadow-md opacity-80;
+			.nameBlock {
+				max-width: 180px;
+				width: 100%;
+			}
+			.nameBlockOffer {
+				max-width: 130px;
+				width: 100%;
+			}
+			.lastNameBlock {
+				max-width: 120px;
+				width: 100%;
+			}
+		}
 	}
 	.mySel {
-		@apply mt-10 mx-auto flex items-center justify-center max-w-6xl;
+		@apply mt-6 mx-auto flex items-center justify-center max-w-6xl;
 		h1 {
 			@apply text-4xl font-bold;
 		}
 		.selBlock {
 			@apply items-center justify-center;
+
 			.text {
 				@apply flex items-center justify-center;
+			}
+			div {
+				.whatChose {
+					@apply text-base;
+				}
 			}
 			.yourSel {
 				@apply flex mt-8;

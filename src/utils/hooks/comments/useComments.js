@@ -1,4 +1,4 @@
-import { async, uuidv4 } from '@firebase/util'
+import { uuidv4 } from '@firebase/util'
 import {
 	collection,
 	deleteDoc,

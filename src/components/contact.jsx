@@ -19,5 +19,9 @@ export const Contact = ({ userRef }) => {
 		getLandlord()
 	}, [userRef])
 
-	return <>{landlord !== null && <>{landlord.name}</>}</>
+	return (
+		<>
+			{landlord !== null && <div className='contactInfo'>{landlord.name}</div>}
+		</>
+	)
 }

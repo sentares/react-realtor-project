@@ -18,6 +18,5 @@ export function useToggleLike({ id, isLiked, uid }) {
 			console.log(error)
 		}
 	}
-
 	return { toggleLike, isLoading }
 }

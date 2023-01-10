@@ -46,6 +46,37 @@ export const Sorting = ({
 		{ icon: <TbSortAscending2 />, property: 'asc' },
 	]
 
+	let nameType = typeNumber()
+	function typeNumber() {
+		if (activeType === 0) {
+			return 'Продажа/Аренда'
+		} else if (activeType === 1) {
+			return 'Продажа'
+		} else {
+			return 'Аренда'
+		}
+	}
+
+	let nameTag = nameNumber()
+	function nameNumber() {
+		if (activeTag === 0) {
+			return 'Домов/Квартир'
+		} else if (activeTag === 1) {
+			return 'Домов'
+		} else {
+			return 'Квартир'
+		}
+	}
+
+	let nameOffer = offerNumber()
+	function offerNumber() {
+		if (activeOffer === 0) {
+			return 'Со скидкой'
+		} else {
+			return 'Без скидки'
+		}
+	}
+
 	return (
 		<section className='options'>
 			<div className='optionsBlock'>
@@ -74,32 +105,61 @@ export const Sorting = ({
 							</ul>
 						</div>
 					)}
+					<div className='sortIcons'>
+						<button
+							onClick={() => setOpenedIcon(!openedIcon)}
+							className='font-semibold'
+						>
+							{activeDescAndAsc.icon}
+						</button>
+						{openedIcon && (
+							<div className='sort__popup__icons'>
+								<ul>
+									{iconList.map((obj, i) => (
+										<li
+											key={i}
+											onClick={() => setOpenedIconItem(obj)}
+											className={
+												activeDescAndAsc.property === obj.property
+													? 'active'
+													: ''
+											}
+										>
+											{obj.icon}
+										</li>
+									))}
+								</ul>
+							</div>
+						)}
+					</div>
 				</div>
-				<div className='sortIcons'>
-					<button
-						onClick={() => setOpenedIcon(!openedIcon)}
-						className='font-semibold'
-					>
-						{activeDescAndAsc.icon}
-					</button>
-					{openedIcon && (
-						<div className='sort__popup__icons'>
-							<ul>
-								{iconList.map((obj, i) => (
-									<li
-										key={i}
-										onClick={() => setOpenedIconItem(obj)}
-										className={
-											activeDescAndAsc.property === obj.property ? 'active' : ''
-										}
-									>
-										{obj.icon}
-									</li>
-								))}
-							</ul>
+
+				{/* {activeSort.name === 'Цене' && (
+					<div className='bedAndBath'>
+						<div>
+							<p>От</p>
+							<input
+								type='number'
+								id='bedrooms'
+								min='100'
+								max='4000000'
+								required
+								className='numbers'
+							/>
 						</div>
-					)}
-				</div>
+						<div>
+							<p>До</p>
+							<input
+								type='number'
+								id='bathrooms'
+								min='1000'
+								max='5000000'
+								required
+								className='numbers'
+							/>
+						</div>
+					</div>
+				)} */}
 
 				<div className='typeBlock'>
 					<ul>
@@ -141,6 +201,20 @@ export const Sorting = ({
 							</li>
 						))}
 					</ul>
+				</div>
+			</div>
+			<div className='choseBlock'>
+				<div className='nameBlock'>
+					<h1 className='whatChose'>{nameType}</h1>
+				</div>
+				<div className='nameBlock'>
+					<h1 className='whatChose'>{nameTag}</h1>
+				</div>
+				<div className='nameBlockOffer'>
+					<h1 className='whatChose'>{nameOffer}</h1>
+				</div>
+				<div className='lastNameBlock'>
+					<h1 className='whatChose'>По: {activeSort.name}</h1>
 				</div>
 			</div>
 		</section>

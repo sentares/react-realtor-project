@@ -1,8 +1,6 @@
-import { collection, getDocs, limit, orderBy, query } from 'firebase/firestore'
-import React, { useContext, useEffect, useState } from 'react'
+import React from 'react'
 import { Slider } from '../components/home/slider'
 import { BlueZone } from '../components/homePage/BlueZone'
-import { db } from '../firebase'
 
 export const Home = () => {
 	return (
@@ -38,7 +36,7 @@ export const Home = () => {
 				{/* свайпер */}
 				<section className='slider'>
 					<div className='content'>
-						<div className='name'>Рекоменации</div>
+						<div className='name'>Недавние</div>
 						<Slider />
 					</div>
 				</section>
