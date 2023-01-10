@@ -1,0 +1,292 @@
+@import '../variables.scss';
+.listingPage {
+	max-width: 1330px;
+	width: 100%;
+	margin: 70px auto;
+	display: flex;
+	justify-content: center;
+	.listingPhoto {
+		position: relative;
+		.photo {
+			max-width: 740px;
+			.mainPh {
+				@apply relative  overflow-hidden h-[420px] w-[740px] rounded-2xl;
+			}
+		}
+		.discount {
+			padding: 10px;
+			width: 9%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			border-radius: 100px;
+			background-color: white;
+			font-size: 45px;
+			color: rgb(201, 66, 66);
+			position: absolute;
+			top: 12px;
+			left: 10px;
+			z-index: 2;
+			opacity: 0.64;
+			cursor: pointer;
+			@apply hover:opacity-100 transition-opacity;
+			.discountPrice {
+				font-size: 28px;
+				font-weight: 700;
+			}
+		}
+		.priceBlock {
+			margin: 25px 25px;
+
+			.totalPrice {
+				font-size: 36px;
+				display: flex;
+				gap: 5px;
+				flex-wrap: wrap;
+				color: $button-color;
+				font-weight: 600;
+				.oldPrice {
+					margin-left: 25px;
+					color: $error-color;
+				}
+			}
+		}
+		.shortInfo {
+			display: flex;
+			margin-top: 15px;
+			margin-left: 25px;
+			.infoElements {
+				border-radius: 8px;
+				background-color: $bg-color;
+				.infoBlock {
+					padding: 15px;
+					display: flex;
+					align-items: center;
+					justify-items: center;
+					div {
+						gap: 10px;
+						display: flex;
+						align-items: center;
+						font-size: 25px;
+						color: $button-color;
+						border-right: 1.5px solid #d8d8d8;
+						padding: 0px 30px;
+						cursor: pointer;
+					}
+					.beds {
+					}
+
+					.parking {
+						border: none;
+						padding-right: 17px;
+					}
+					.sofa {
+						@apply py-[6.5px];
+						padding-left: 15px;
+					}
+					.noSofa {
+						@apply py-[6.5px];
+						padding-left: 15px;
+						color: $none-color;
+					}
+				}
+			}
+		}
+	}
+	.textInfo {
+		display: flex;
+		margin-left: 70px;
+		.textGlobal {
+			.type {
+				border-radius: 5px;
+				font-weight: 700;
+				padding: 10px;
+				font-size: 25px;
+				margin: 15px 0;
+				@apply shadow-lg;
+				.sale {
+					color: rgb(54, 166, 54);
+				}
+				.rent {
+					color: rgb(147, 36, 36);
+				}
+			}
+			ul {
+				border-radius: 5px;
+				padding: 10px;
+				margin: 15px 0;
+				@apply shadow-lg;
+				.tag {
+					font-size: 22px;
+					font-weight: 700;
+				}
+				.userAndLikes {
+					margin-top: 15px;
+					width: 540px;
+					display: flex;
+					justify-content: space-between;
+					align-items: center;
+					.user {
+						font-size: 17px;
+						display: flex;
+						align-items: center;
+						gap: 9px;
+						.iconPh {
+							width: 50px;
+							height: 50px;
+							color: $button-color;
+							cursor: pointer;
+							@apply hover:text-green-700;
+						}
+						.phoneNumber {
+							display: flex;
+							cursor: pointer;
+							align-items: center;
+							gap: 4px;
+							font-size: 24px;
+							font-weight: 500;
+							letter-spacing: 0.8px;
+							color: $hover-button-color;
+						}
+						.contactInfo {
+							cursor: pointer;
+							font-size: 18px;
+							font-weight: 400;
+							padding: 5px;
+							border-radius: 5px;
+							@apply hover:bg-[#4a60a1] hover:text-white active:bg-[#115d59];
+						}
+					}
+					.likes {
+						display: flex;
+						align-items: center;
+						gap: 15px;
+						.save {
+							display: flex;
+							gap: 5px;
+							align-items: center;
+							margin-bottom: 2px;
+							border-radius: 3px;
+							.likeOn {
+								@apply text-2xl bg-[#EDEFF6] p-[3px] w-7 h-7  text-red-500 cursor-pointer rounded-sm;
+							}
+							.likeOff {
+								@apply text-2xl  bg-[#EDEFF6] p-[3px] w-7 h-7  text-[#4a60a1] hover:text-red-600 cursor-pointer rounded-sm;
+							}
+							.commentOff {
+								@apply text-2xl  bg-[#EDEFF6] p-[3px] w-7 h-7  text-[#4a60a1] hover:text-[#5d7ac9] cursor-pointer;
+							}
+						}
+						.icon {
+							@apply text-2xl bg-[#EDEFF6] p-[3px] w-7 h-7  text-[#4a60a1]  cursor-pointer hover:text-[#2c3a61] rounded-sm;
+						}
+					}
+				}
+				.address {
+					display: flex;
+					align-items: center;
+					gap: 5px;
+					margin-top: 24px;
+					font-size: 24px;
+					color: $button-color;
+					font-weight: 600;
+					cursor: pointer;
+					@apply hover:text-[#2c3a61];
+				}
+				.info {
+					margin: 16px 0;
+					font-size: 18px;
+					font-weight: 400;
+					color: #889099;
+				}
+			}
+			.messageUser {
+				@apply px-7 py-3 bg-[#4a60a1] text-white font-medium text-sm uppercase rounded shadow-md hover:bg-[#2c3a61] hover:shadow-lg focus:bg-[#2c3a61] focus:shadow-lg w-full text-center transition duration-150 ease-in-out;
+			}
+
+			.comments {
+				.addComment {
+					border-radius: 5px;
+					padding: 10px;
+					font-size: 25px;
+					margin: 15px 0;
+					@apply shadow-lg;
+					.newComment {
+						display: flex;
+						align-items: center;
+						justify-content: space-between;
+						.textWrite {
+							max-width: 500px;
+							padding: 5px;
+							input {
+								font-size: 20px;
+								border-radius: 5px;
+								padding: 5px;
+								width: 460px;
+								background-color: $bg-color;
+							}
+						}
+						.addButton {
+							padding: 5px;
+							button {
+								font-size: 32px;
+								padding: 5px;
+								border-radius: 5px;
+								background-color: $hover-button-color;
+								color: white;
+							}
+							:hover {
+								background-color: $click-button-color;
+							}
+						}
+					}
+				}
+				.allComments {
+					border-radius: 5px;
+					padding: 10px;
+					font-size: 25px;
+					margin: 15px 0;
+					@apply shadow-lg;
+					.userComment {
+						.userInfo {
+							justify-content: space-between;
+							display: flex;
+							align-items: center;
+							color: $hover-button-color;
+							.user {
+								display: flex;
+								align-items: center;
+								gap: 5px;
+								.userIcon {
+									font-size: 32px;
+								}
+							}
+							.data {
+								font-size: 16px;
+								color: $none-color;
+							}
+						}
+						.textBlock {
+							display: flex;
+							align-items: center;
+							justify-content: space-between;
+							.text {
+								margin-top: 5px;
+								padding: 10px;
+								font-size: 18px;
+								color: $gray-color;
+							}
+							.trash {
+								color: $second-color;
+								font-size: 22px;
+								padding-right: 5px;
+								cursor: pointer;
+								@apply hover:text-red-700;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

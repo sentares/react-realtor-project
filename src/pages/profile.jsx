@@ -1,23 +1,78 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FaUserCircle } from 'react-icons/fa'
 import { getAuth } from 'firebase/auth'
 import { Link, useNavigate } from 'react-router-dom'
 import { MdSell } from 'react-icons/md'
+import { db } from '../firebase'
+import { toast } from 'react-toastify'
+import {
+	collection,
+	deleteDoc,
+	doc,
+	getDocs,
+	orderBy,
+	query,
+	where,
+} from 'firebase/firestore'
+import { ListingItem } from '../components/listingItem/listingItem'
+import { LoaderElement } from '../utils/loader/loader'
 
 export const Profile = () => {
+	const [listings, setListings] = useState(null)
+	const [loading, setLoading] = useState(true)
+	const [open, setOpen] = useState(true)
 	const navigate = useNavigate()
 	const auth = getAuth()
-	const [formData, setFormData] = useState({
+	const formData = {
 		name: auth.currentUser.displayName,
 		email: auth.currentUser.email,
-	})
-	const { name, email } = formData
+	}
+	const { name } = formData
 
 	function onLogOut() {
 		auth.signOut()
 		navigate('/')
 	}
-	return (
+	useEffect(() => {
+		async function fetchUserSel() {
+			const listingRef = collection(db, 'listings')
+			const q = query(
+				listingRef,
+				where('userRef', '==', auth.currentUser.uid),
+				orderBy('timestamp', 'desc', 'regularPrice', 'desc')
+			)
+			const querySnap = await getDocs(q)
+			let listings = []
+			querySnap.forEach(doc => {
+				return listings.push({
+					id: doc.id,
+					data: doc.data(),
+				})
+			})
+			setListings(listings)
+			setLoading(false)
+		}
+		fetchUserSel()
+	}, [auth.currentUser.uid])
+
+	function openList() {
+		setOpen(!open)
+	}
+
+	async function onDelete(listingID) {
+		if (window.confirm('Вы уверены что хотите удалить объявление?')) {
+			await deleteDoc(doc(db, 'listings', listingID))
+			const updatedListings = listings.filter(
+				listing => listing.id !== listingID
+			)
+			setListings(updatedListings)
+			toast.success('Успешно удалено')
+		}
+	}
+	function onEdit(listingID) {
+		navigate(`/edit-listing/${listingID}`)
+	}
+	return !loading ? (
 		<div className='profile'>
 			<section className='profile_userData'>
 				<div className='userDataContent'>
@@ -30,26 +85,59 @@ export const Profile = () => {
 			</section>
 			<section className='navProfile'>
 				<div>
-					<button>Мои объявления</button>
-				</div>
-				<div>
-					<button>Понравившиеся</button>
+					<button onClick={() => openList()} className={open ? 'active' : ''}>
+						Мои объявления
+					</button>
 				</div>
 				<div>
 					<button onClick={onLogOut}>Выйти с профиля</button>
 				</div>
 			</section>
-			<section className='ribbonProfile'>
-				<div className='button_block'>
-					<div>Объявлении: 0</div>
-					<Link to='/createsel'>
-						<button>
-							<MdSell />
-							Создать новое объявление
-						</button>
-					</Link>
+			{open && (
+				<section className='ribbonProfile'>
+					<div className='button_block'>
+						<Link to='/createsel'>
+							<button>
+								<MdSell />
+								Создать новое объявление
+							</button>
+						</Link>
+					</div>
+				</section>
+			)}
+
+			{open && !loading && listings.length > 0 ? (
+				<section className='mySel'>
+					<div className='selBlock'>
+						<div className='text'>
+							<h1>Созданные объявления</h1>
+						</div>
+						<div className='yourSel'>
+							<ul className='selHouse'>
+								{listings.map(listing => (
+									<ListingItem
+										key={listing.id}
+										id={listing.id}
+										listing={listing.data}
+										onDelete={() => onDelete(listing.id)}
+										onEdit={() => onEdit(listing.id)}
+									/>
+								))}
+							</ul>
+						</div>
+					</div>
+				</section>
+			) : (
+				<div className='flex items-center justify-center mt-14 font-semibold text-4xl'>
+					<div className='text'>
+						<h1>Нет созданных объявлении...</h1>
+					</div>
 				</div>
-			</section>
+			)}
+		</div>
+	) : (
+		<div>
+			<LoaderElement />
 		</div>
 	)
 }

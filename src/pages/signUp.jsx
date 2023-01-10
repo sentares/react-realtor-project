@@ -44,7 +44,9 @@ export const SignUp = () => {
 			const formDataCopy = { ...formData }
 			delete formDataCopy.password
 			formDataCopy.timestamp = serverTimestamp()
+			formDataCopy.uid = user.uid
 			await setDoc(doc(db, 'users', user.uid), formDataCopy)
+
 			toast.success('регистрация прошла успешно!')
 			navigate('/')
 		} catch (error) {

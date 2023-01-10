@@ -11,17 +11,19 @@ import { v4 as uuidv4 } from 'uuid'
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore'
 import { db } from '../firebase'
 import { useNavigate } from 'react-router-dom'
+import { LoaderElement } from '../utils/loader/loader'
 
 export const CreateSel = () => {
 	const navigate = useNavigate()
 	const auth = getAuth()
-	const [geolocationEnabled, setGeolocationEnabled] = useState(true)
+	// const [geolocationEnabled, setGeolocationEnabled] = useState(true)
 	const [loading, setLoading] = useState(false)
 	const [formData, setFormData] = useState({
 		type: 'rent',
-		name: '',
+		name: 'Дом',
 		bedrooms: 1,
 		bathrooms: 1,
+		area: 1,
 		parking: false,
 		furnished: false,
 		address: '',
@@ -29,15 +31,18 @@ export const CreateSel = () => {
 		offer: false,
 		regularPrice: 0,
 		discountedPrice: 0,
-		latitude: 0,
-		longitude: 0,
+		// latitude: 0,
+		// longitude: 0,
 		images: {},
+		likes: [],
+		phoneNumber: 0,
 	})
 	const {
 		type,
 		name,
 		bedrooms,
 		bathrooms,
+		area,
 		parking,
 		address,
 		furnished,
@@ -45,10 +50,13 @@ export const CreateSel = () => {
 		offer,
 		regularPrice,
 		discountedPrice,
-		latitude,
-		longitude,
+		// latitude,
+		// longitude,
 		images,
+		likes,
+		phoneNumber,
 	} = formData
+
 	function onChange(e) {
 		let boolean = null
 		if (e.target.value === 'true') {
@@ -57,12 +65,14 @@ export const CreateSel = () => {
 		if (e.target.value === 'false') {
 			boolean = false
 		}
+		// Files
 		if (e.target.files) {
 			setFormData(prevState => ({
 				...prevState,
 				images: e.target.files,
 			}))
 		}
+		// Text/Boolean/Number
 		if (!e.target.files) {
 			setFormData(prevState => ({
 				...prevState,
@@ -75,35 +85,18 @@ export const CreateSel = () => {
 		setLoading(true)
 		if (+discountedPrice >= +regularPrice) {
 			setLoading(false)
-			toast.error('Скидочная цена должна быть меньше начальной цены')
+			toast.error('Скидочная цена должна быть ниже начальной цены')
 			return
 		}
 		if (images.length > 6) {
 			setLoading(false)
-			toast.error('Максимум 6 фотографии можно добавить')
+			toast.error('Максимум 6 фото')
 			return
 		}
-		let geolocation = {}
-		let location
-		if (geolocationEnabled) {
-			const response = await fetch(
-				`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${process.env.REACT_APP_GEOCODE_API_KEY}`
-			)
-			const data = await response.json()
-			console.log(data)
-			geolocation.lat = data.results[0]?.geometry.location.lat ?? 0
-			geolocation.lng = data.results[0]?.geometry.location.lng ?? 0
 
-			location = data.status === 'ZERO_RESULTS' && undefined
-
-			if (location === undefined) {
-				setLoading(false)
-				toast.error('Напишите правильный адрес')
-				return
-			}
-		} else {
-			geolocation.lat = latitude
-			geolocation.lng = longitude
+		let geolocation = {
+			lat: 42.87134,
+			lng: 74.619064,
 		}
 
 		async function storeImage(image) {
@@ -115,6 +108,8 @@ export const CreateSel = () => {
 				uploadTask.on(
 					'state_changed',
 					snapshot => {
+						// Observe state change events such as progress, pause, and resume
+						// Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
 						const progress =
 							(snapshot.bytesTransferred / snapshot.totalBytes) * 100
 						console.log('Upload is ' + progress + '% done')
@@ -128,9 +123,12 @@ export const CreateSel = () => {
 						}
 					},
 					error => {
+						// Handle unsuccessful uploads
 						reject(error)
 					},
 					() => {
+						// Handle successful uploads on complete
+						// For instance, get the download URL: https://firebasestorage.googleapis.com/...
 						getDownloadURL(uploadTask.snapshot.ref).then(downloadURL => {
 							resolve(downloadURL)
 						})
@@ -141,31 +139,32 @@ export const CreateSel = () => {
 
 		const imgUrls = await Promise.all(
 			[...images].map(image => storeImage(image))
-		).catch(error => {
+		).catch(() => {
 			setLoading(false)
-			toast.error('Изображения не загружены')
+			toast.error('Фото не загружено')
 			return
 		})
 
 		const formDataCopy = {
 			...formData,
 			imgUrls,
-			geolocation,
 			timestamp: serverTimestamp(),
+			geolocation,
 			userRef: auth.currentUser.uid,
+			likes: [],
 		}
 		delete formDataCopy.images
 		!formDataCopy.offer && delete formDataCopy.discountedPrice
-		delete formDataCopy.latitude
-		delete formDataCopy.longitude
+		// delete formDataCopy.latitude
+		// delete formDataCopy.longitude
 		const docRef = await addDoc(collection(db, 'listings'), formDataCopy)
 		setLoading(false)
-		toast.success('Оюъявление создано')
+		toast.success('Объявление создано')
 		navigate(`/category/${formDataCopy.type}/${docRef.id}`)
 	}
 
 	if (loading) {
-		return 'loading'
+		return <LoaderElement />
 	}
 	return (
 		<main>
@@ -200,17 +199,34 @@ export const CreateSel = () => {
 						Аренда
 					</button>
 				</div>
-				<p>Название</p>
-				<input
-					type='text'
-					id='name'
-					value={name}
-					onChange={onChange}
-					placeholder='Придумайте название'
-					maxLength='32'
-					minLength='10'
-					required
-				/>
+				<p>Выберите Тэг</p>
+				<div className='flex'>
+					<button
+						type='button'
+						id='name'
+						value='Дом'
+						onClick={onChange}
+						className={` ${
+							name === 'Квартира'
+								? 'bg-white text-black'
+								: 'bg-[#2c3a61] text-white'
+						}`}
+					>
+						Дом
+					</button>
+					<button
+						type='button'
+						id='name'
+						value='Квартира'
+						onClick={onChange}
+						className={`${
+							name === 'Дом' ? 'bg-white text-black' : 'bg-[#2c3a61] text-white'
+						}`}
+					>
+						Квартира
+					</button>
+				</div>
+
 				<div className='bedAndBath'>
 					<div>
 						<p>Спален</p>
@@ -298,34 +314,6 @@ export const CreateSel = () => {
 					placeholder='Адрес'
 					required
 				/>
-				{!geolocationEnabled && (
-					<div className='flex space-x-6 justify-start mb-6'>
-						<div className=''>
-							<p>Широта</p>
-							<input
-								type='number'
-								id='latitude'
-								value={latitude}
-								onChange={onChange}
-								required
-								min='-90'
-								max='90'
-							/>
-						</div>
-						<div className=''>
-							<p>Долгота</p>
-							<input
-								type='number'
-								id='longitude'
-								value={longitude}
-								onChange={onChange}
-								required
-								min='-180'
-								max='180'
-							/>
-						</div>
-					</div>
-				)}
 				<p>Описание</p>
 				<textarea
 					type='text'
@@ -333,6 +321,26 @@ export const CreateSel = () => {
 					value={description}
 					onChange={onChange}
 					placeholder='Опишите дом/квартиру'
+					required
+				/>
+				<p>Площадь м²</p>
+				<input
+					type='number'
+					id='area'
+					value={area}
+					onChange={onChange}
+					min='1'
+					max='50000'
+					required
+					className='numbers'
+				/>
+				<p>Ваш номер телефона</p>
+				<input
+					type='number'
+					id='phoneNumber'
+					value={phoneNumber}
+					onChange={onChange}
+					placeholder='+996-700-700-700'
 					required
 				/>
 				<p>Cкидка</p>

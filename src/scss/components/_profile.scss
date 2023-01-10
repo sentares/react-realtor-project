@@ -39,6 +39,10 @@
 			border-radius: 5px;
 			color: white;
 		}
+		.active {
+			background-color: $second-color;
+			color: white;
+		}
 	}
 	.ribbonProfile {
 		.button_block {
@@ -62,6 +66,24 @@
 			:hover {
 				border-radius: 5px;
 				background-color: rgb(11, 112, 104);
+			}
+		}
+	}
+	.mySel {
+		@apply mt-10 mx-auto flex items-center justify-center max-w-6xl;
+		h1 {
+			@apply text-4xl font-bold;
+		}
+		.selBlock {
+			@apply items-center justify-center;
+			.text {
+				@apply flex items-center justify-center;
+			}
+			.yourSel {
+				@apply flex mt-8 justify-center;
+				.selHouse {
+					@apply flex flex-wrap;
+				}
 			}
 		}
 	}

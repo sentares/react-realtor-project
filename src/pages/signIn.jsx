@@ -3,7 +3,7 @@ import { AiFillHome } from 'react-icons/ai'
 import { MdEmail } from 'react-icons/md'
 import { Link, useNavigate } from 'react-router-dom'
 import { GoogleAuth } from '../components/auth/googleAuth'
-import { signInWithEmailAndPassword, auth, getAuth } from 'firebase/auth'
+import { signInWithEmailAndPassword, getAuth } from 'firebase/auth'
 import { toast } from 'react-toastify'
 
 export const SignIn = () => {
@@ -30,6 +30,7 @@ export const SignIn = () => {
 			)
 			if (userCredential.user) {
 				navigate('/')
+				toast.success('Добро пожаловать')
 			}
 		} catch (error) {
 			toast.error('Неправильные данные пользователя')

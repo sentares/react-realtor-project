@@ -1,0 +1,37 @@
+.modal {
+	height: 100%;
+	width: 100%;
+	background-color: rgba(0, 0, 0, 0.3);
+	position: fixed;
+	align-items: center;
+	top: 0;
+	left: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	z-index: 20;
+	.content {
+		padding: 20px;
+		border-radius: 12px;
+		background-color: white;
+		height: 560px;
+		width: 760px;
+		.close {
+			align-items: flex-start;
+			justify-content: flex-end;
+			display: flex;
+			.closeIcon {
+				color: $gray-color;
+				font-size: 24px;
+				font-weight: 700;
+				@apply hover:text-red-800;
+			}
+		}
+		.map {
+			margin-top: 10px;
+			width: 100%;
+			height: 93%;
+			z-index: 30;
+		}
+	}
+}
