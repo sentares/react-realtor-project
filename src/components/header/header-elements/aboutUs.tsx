@@ -1,7 +1,6 @@
-import { BiSearch } from 'react-icons/bi'
 import { Link } from 'react-router-dom'
 
-export const AboutUs = () => {
+export const AboutUs = (): JSX.Element => {
 	return (
 		<div className='about'>
 			<Link to='/'>About Us</Link>

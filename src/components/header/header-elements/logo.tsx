@@ -1,7 +1,6 @@
-import React from 'react'
 import { useNavigate } from 'react-router-dom'
 
-export const Logo = () => {
+export const Logo = (): JSX.Element => {
 	const navigate = useNavigate()
 	return (
 		<div className=' ml-9 rounded-lg bg-white px-2 shadow-lg'>

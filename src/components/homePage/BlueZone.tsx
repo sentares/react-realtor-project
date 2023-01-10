@@ -1,7 +1,6 @@
-import React from 'react'
 import { Link } from 'react-router-dom'
 
-export const BlueZone = () => {
+export const BlueZone = (): JSX.Element => {
 	return (
 		<section className='blueZone'>
 			<div className='mainText'>
@@ -14,7 +13,7 @@ export const BlueZone = () => {
 							<img src='/assets/svg/63-home 1.svg' alt='' />
 						</div>
 						<div className='text'>
-							<Link to={'/offers'}>
+							<Link to={'/profile'}>
 								<div className='nameText'>Продать</div>
 								<div>Поможем найти клиента...</div>
 								<div className='next'>Читать дальше</div>
@@ -26,7 +25,7 @@ export const BlueZone = () => {
 							<img src='/assets/svg/rent.svg' alt='' />
 						</div>
 						<div className='text'>
-							<Link to={'/offers'}>
+							<Link to={'/profile'}>
 								<div className='nameText'>Сдать</div>
 								<div>Поможем найти клиента...</div>
 								<div className='next'>Читать дальше</div>

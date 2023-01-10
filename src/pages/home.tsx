@@ -1,8 +1,8 @@
-import React from 'react'
-import { Slider } from '../components/home/slider'
+import { FC } from 'react'
+import { Slider } from '../components/homePage/slider'
 import { BlueZone } from '../components/homePage/BlueZone'
 
-export const Home = () => {
+export const Home: FC = (): JSX.Element => {
 	return (
 		<div className='homePage'>
 			<div className='container'>

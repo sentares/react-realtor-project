@@ -40,7 +40,7 @@ function App() {
 							</Route>
 							<Route path='/offers' element={<Offers />} />
 							<Route path='/likes' element={<Likes />} />
-							<Route path='search' element={<Search />} />
+							<Route path='/search' element={<Search />} />
 							<Route
 								path='/category/:categoryName/:listingId'
 								element={<Listing />}
