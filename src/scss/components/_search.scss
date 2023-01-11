@@ -1,0 +1,67 @@
+.search {
+	.offersPreview {
+		height: 240px;
+		.ph {
+			max-height: 240px;
+			height: 100%;
+			.previewPh {
+			}
+			.previewText {
+				display: flex;
+				margin-top: -132px;
+				color: white;
+				justify-content: center;
+				align-items: center;
+				font-size: 45px;
+				gap: 15px;
+			}
+		}
+	}
+	.searchBlock {
+		max-width: 1152px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		margin: 0 auto;
+		.inputBlock {
+			width: 60%;
+			margin: 0px auto;
+			padding: 15px;
+			border-radius: 15px;
+			background-color: $bg-color;
+			input {
+				width: 100%;
+				padding: 5px;
+				font-size: 20px;
+				border-radius: 5px;
+				margin-right: 12px;
+			}
+			button {
+				color: white;
+				background-color: $button-color;
+				padding: 5px;
+				font-size: 20px;
+				border-radius: 10px;
+				@apply hover:bg-[#1d928c];
+			}
+		}
+	}
+	.mySel {
+		@apply mt-1 mx-auto flex items-center justify-center max-w-6xl w-full;
+		h1 {
+			@apply text-4xl font-bold;
+		}
+		.selBlock {
+			@apply items-center justify-center w-full;
+			.text {
+				@apply flex items-center justify-center mt-6;
+			}
+			.yourSel {
+				@apply flex mt-8 items-center justify-center;
+				.selHouse {
+					@apply flex flex-wrap;
+				}
+			}
+		}
+	}
+}

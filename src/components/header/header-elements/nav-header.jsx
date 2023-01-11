@@ -1,6 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
+import { AiFillHome } from 'react-icons/ai'
+import { MdSell } from 'react-icons/md'
+import { FaHeart, FaSearch, FaUserCircle } from 'react-icons/fa'
+import { GoSignIn } from 'react-icons/go'
 
 export const NavHeader = () => {
 	const location = useLocation()
@@ -17,9 +21,17 @@ export const NavHeader = () => {
 	useEffect(() => {
 		onAuthStateChanged(auth, user => {
 			if (user) {
-				setPageState('Мой профиль')
+				setPageState(
+					<>
+						<FaUserCircle />
+					</>
+				)
 			} else {
-				setPageState('Войти')
+				setPageState(
+					<>
+						<GoSignIn />
+					</>
+				)
 			}
 		})
 	}, [auth])
@@ -29,25 +41,42 @@ export const NavHeader = () => {
 			<ul>
 				<li onClick={() => navigate('/')}>
 					<button
-						className={`text-black ${
-							pathMatchRoute('/') && 'shadow-xl bg-white text-[#2c3a61]'
-						}`}
+						className={`stateButton ${pathMatchRoute('/') && 'activeButton'}`}
 					>
-						Домашняя
+						<AiFillHome />
 					</button>
 				</li>
 				<li onClick={() => navigate('/offers')}>
 					<button
-						className={`text-black ${
-							pathMatchRoute('/offers') && 'shadow-xl bg-white text-[#2c3a61]'
+						className={`stateButton ${
+							pathMatchRoute('/offers') && 'activeButton'
 						}`}
 					>
-						Предложения
+						<MdSell />
+					</button>
+				</li>
+				<li onClick={() => navigate('/search')}>
+					<button
+						className={`stateButton ${
+							pathMatchRoute('/search') && 'activeButton'
+						}`}
+					>
+						<FaSearch />
+					</button>
+				</li>
+
+				<li onClick={() => navigate('/likes')}>
+					<button
+						className={`stateButton ${
+							pathMatchRoute('/likes') && 'activeButton'
+						}`}
+					>
+						<FaHeart />
 					</button>
 				</li>
 				<li onClick={() => navigate('/profile')}>
 					<button
-						className={`text-black ${
+						className={`stateButton ${
 							(pathMatchRoute('/sign-in') || pathMatchRoute('/profile')) &&
 							'shadow-xl bg-white text-[#2c3a61]'
 						}`}

@@ -1,0 +1,39 @@
+.signIn {
+	@apply h-screen overflow-hidden flex items-center justify-center;
+	.home {
+		@apply bg-gray-800 absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-full p-4 shadow-2xl hover:bg-blue-900 hover:rounded-2xl hover:ease-in duration-300;
+		.homeIcon {
+			@apply text-white text-xl;
+		}
+	}
+	.form {
+		@apply p-14 md:p-16;
+		.inputBlock {
+			@apply flex items-center text-lg mb-6 md:mb-8;
+			.svgElem {
+				@apply absolute ml-3;
+			}
+			.input {
+				@apply bg-gray-200 pl-12 py-2 md:py-4 focus:outline-none w-full rounded-md focus:bg-blue-100 hover:bg-zinc-300;
+			}
+		}
+		.buttonAdd {
+			@apply bg-gray-900 font-medium p-2 md:p-4 text-white uppercase w-full rounded-md hover:bg-[#2c3a61] hover:ease-in duration-300;
+		}
+		.emptySpace {
+			@apply mt-5 flex items-center justify-center;
+			.orSpace {
+				@apply text-[13.5px] font-semibold;
+			}
+		}
+		.haveAcc {
+			@apply flex items-center text-lg mt-8;
+			.accText {
+				@apply m-auto;
+				.pressInto {
+					@apply text-blue-500 hover:text-violet-700 ml-2;
+				}
+			}
+		}
+	}
+}
