@@ -1,10 +1,11 @@
 import { arrayRemove, arrayUnion, doc, updateDoc } from 'firebase/firestore'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import { db } from '../../../firebase'
 
 export function useToggleLike({ id, isLiked, uid }) {
 	const [isLoading, setLoading] = useState(false)
+	// useEffect(() => {
 	async function toggleLike() {
 		setLoading(true)
 		try {
@@ -18,5 +19,7 @@ export function useToggleLike({ id, isLiked, uid }) {
 			console.log(error)
 		}
 	}
+	// toggleLike()
+	// }, [])
 	return { toggleLike, isLoading }
 }

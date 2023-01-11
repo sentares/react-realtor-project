@@ -1,6 +1,6 @@
 import { doc, getDoc } from 'firebase/firestore'
-import React, { useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
 import { db } from '../firebase'
 import { LoaderElement } from '../utils/loader/loader'
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -142,7 +142,12 @@ export const Listing = () => {
 									<FaUserCircle className='iconPh' />
 									{userNumber ? (
 										<div className='phoneNumber'>
-											{listing.phoneNumber}
+											<a
+												target='blank'
+												href='https://api.whatsapp.com/send/?phone=0500663199&text=Здравствуйте%2C+я+по+поводу+объявления'
+											>
+												{listing.phoneNumber}
+											</a>
 											<RiWhatsappFill className=' text-2xl' />
 										</div>
 									) : (

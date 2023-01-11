@@ -64,6 +64,7 @@ export const NavHeader = () => {
 						<FaSearch />
 					</button>
 				</li>
+
 				<li onClick={() => navigate('/likes')}>
 					<button
 						className={`stateButton ${
@@ -73,7 +74,6 @@ export const NavHeader = () => {
 						<FaHeart />
 					</button>
 				</li>
-
 				<li onClick={() => navigate('/profile')}>
 					<button
 						className={`stateButton ${

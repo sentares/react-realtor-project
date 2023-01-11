@@ -34,16 +34,12 @@ export const Sorting = ({
 	const type = ['Все', 'Продажа', 'Аренда']
 	const offer = ['Со скидкой', 'Без скидки']
 	const tag = ['Все', 'Дом', 'Квартира']
+	const iconList = ['desc', 'asc']
 
 	const sortList = [
 		{ name: 'Дате', sortProperty: 'timestamp' },
 		{ name: 'Цене', sortProperty: 'regularPrice' },
 		{ name: 'Площади', sortProperty: 'area' },
-	]
-
-	const iconList = [
-		{ icon: <TbSortDescending2 />, property: 'desc' },
-		{ icon: <TbSortAscending2 />, property: 'asc' },
 	]
 
 	let nameType = typeNumber()
@@ -110,22 +106,26 @@ export const Sorting = ({
 							onClick={() => setOpenedIcon(!openedIcon)}
 							className='font-semibold'
 						>
-							{activeDescAndAsc.icon}
+							{activeDescAndAsc === 0 ? (
+								<TbSortDescending2 />
+							) : (
+								<TbSortAscending2 />
+							)}
 						</button>
 						{openedIcon && (
 							<div className='sort__popup__icons'>
 								<ul>
-									{iconList.map((obj, i) => (
+									{iconList.map((value, i) => (
 										<li
-											key={i}
-											onClick={() => setOpenedIconItem(obj)}
-											className={
-												activeDescAndAsc.property === obj.property
-													? 'active'
-													: ''
-											}
+											key={value}
+											className={activeDescAndAsc === i ? 'active' : ''}
+											onClick={() => setOpenedIconItem(i)}
 										>
-											{obj.icon}
+											{value === 'desc' ? (
+												<TbSortDescending2 />
+											) : (
+												<TbSortAscending2 />
+											)}
 										</li>
 									))}
 								</ul>

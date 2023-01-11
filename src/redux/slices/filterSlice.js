@@ -1,14 +1,11 @@
-import { createSlice } from '@reduxjs/toolkit'
-import { TbSortDescending2 } from 'react-icons/tb'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { ISorting, Sort } from './types/sortTypes'
 
 const initialState = {
 	activeType: 0,
 	activeOffer: 0,
 	activeTag: 0,
-	activeDescAndAsc: {
-		icon: <TbSortDescending2 />,
-		property: 'desc',
-	},
+	activeDescAndAsc: 0,
 	activeSort: {
 		name: 'Дате',
 		sortProperty: 'timestamp',

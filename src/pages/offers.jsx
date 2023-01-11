@@ -6,6 +6,7 @@ import { ListingItem } from '../components/listingItem/listingItem'
 import { Sorting } from '../components/offers/sorting'
 import { db } from '../firebase'
 import {
+	setActiveDescAndAsc,
 	setActiveOffer,
 	setActiveTag,
 	setActiveType,
@@ -29,6 +30,10 @@ export const Offers = () => {
 	}
 	const onChangeActiveTag = id => {
 		dispatch(setActiveTag(id))
+	}
+
+	const onChangeActiveIcon = id => {
+		dispatch(setActiveDescAndAsc(id))
 	}
 
 	let typeValue = trueType()
@@ -64,7 +69,7 @@ export const Offers = () => {
 
 	let sortIcon = trueIcon()
 	function trueIcon() {
-		if (activeDescAndAsc.property === 'desc') {
+		if (activeDescAndAsc === 0) {
 			return 'desc'
 		} else {
 			return 'asc'
@@ -135,6 +140,7 @@ export const Offers = () => {
 				onChangeActiveType={onChangeActiveType}
 				onChangeActiveOffer={onChangeActiveOffer}
 				onChangeActiveTag={onChangeActiveTag}
+				onChangeActiveIcon={onChangeActiveIcon}
 			/>
 
 			<section className='mySel'>
