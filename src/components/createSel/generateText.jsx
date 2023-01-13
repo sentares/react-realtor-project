@@ -6,7 +6,8 @@ import { LoaderElement } from '../../utils/loader/loader'
 
 const configuration = new Configuration({
 	organization: 'org-j5D24Df31GtAObzMePX9ZDma',
-	apiKey: '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',
+	apiKey: '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',
+	// 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
 })
 const openai = new OpenAIApi(configuration)
 
@@ -45,7 +46,6 @@ export const GenerateText = () => {
 		}
 	}
 
-	console.log(textResult)
 	return (
 		<>
 			{openTextPopup && (

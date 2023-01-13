@@ -16,6 +16,7 @@ import {
 } from 'firebase/firestore'
 import { ListingItem } from '../components/listingItem/listingItem'
 import { LoaderElement } from '../utils/loader/loader'
+import { Pagination } from '../components/pagination'
 
 export const Profile = () => {
 	const [listings, setListings] = useState(null)
@@ -28,6 +29,16 @@ export const Profile = () => {
 		email: auth.currentUser.email,
 	}
 	const { name } = formData
+
+	const [currentPage, setCurrentPage] = useState(1)
+	const [postPerPage] = useState(6)
+	const paginate = pageNumber => setCurrentPage(pageNumber)
+	let currentListing
+	if (listings) {
+		const indexOfLastListing = currentPage * postPerPage
+		const indexOfFirstListing = indexOfLastListing - postPerPage
+		currentListing = listings.slice(indexOfFirstListing, indexOfLastListing)
+	}
 
 	function onLogOut() {
 		auth.signOut()
@@ -114,7 +125,7 @@ export const Profile = () => {
 						</div>
 						<div className='yourSel'>
 							<ul className='selHouse'>
-								{listings.map(listing => (
+								{currentListing.map(listing => (
 									<ListingItem
 										key={listing.id}
 										id={listing.id}
@@ -124,6 +135,13 @@ export const Profile = () => {
 									/>
 								))}
 							</ul>
+						</div>
+						<div>
+							<Pagination
+								paginate={paginate}
+								postPerPage={postPerPage}
+								totalPosts={listings.length}
+							/>
 						</div>
 					</div>
 				</section>

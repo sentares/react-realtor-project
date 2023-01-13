@@ -1,13 +1,22 @@
 import { useState } from 'react'
 import { FaSearch } from 'react-icons/fa'
 import { useAllListings } from '../utils/hooks/useAllListings'
-import React from 'react'
 import { SearchListingItem } from '../components/listingItem/searchListingItem'
 import { LoaderElement } from '../utils/loader/loader'
+import { Pagination } from '../components/pagination'
 
 export const Search = () => {
 	const [searchValue, setSearchValue] = useState('')
+	const [currentPage, setCurrentPage] = useState(1)
+	const [postPerPage] = useState(6)
 	const { allListings, loading } = useAllListings()
+	const paginate = pageNumber => setCurrentPage(pageNumber)
+	let currentListing
+	if (allListings) {
+		const indexOfLastListing = currentPage * postPerPage
+		const indexOfFirstListing = indexOfLastListing - postPerPage
+		currentListing = allListings.slice(indexOfFirstListing, indexOfLastListing)
+	}
 
 	return !loading ? (
 		<div className='search'>
@@ -35,21 +44,30 @@ export const Search = () => {
 						<h1>Все объявления</h1>
 					</div>
 					{allListings && allListings.length > 0 ? (
-						<div className='yourSel'>
-							<ul className='selHouse'>
-								{allListings.map(listing => (
-									<SearchListingItem
-										searchValue={searchValue}
-										key={listing.id}
-										listing={listing.data}
-										id={listing.id}
-									/>
-								))}
-							</ul>
+						<div>
+							<div className='yourSel'>
+								<ul className='selHouse'>
+									{currentListing.map(listing => (
+										<SearchListingItem
+											searchValue={searchValue}
+											key={listing.id}
+											listing={listing.data}
+											id={listing.id}
+										/>
+									))}
+								</ul>
+							</div>
+							<div>
+								<Pagination
+									paginate={paginate}
+									postPerPage={postPerPage}
+									totalPosts={allListings.length}
+								/>
+							</div>
 						</div>
 					) : (
 						<div className='mt-14 text-2xl font-semibold'>
-							По таким критериям ничего не найдено(
+							Ничего не найдено(
 						</div>
 					)}
 				</div>

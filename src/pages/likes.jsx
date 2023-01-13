@@ -1,7 +1,8 @@
-import React from 'react'
+import { useState } from 'react'
 import { FaHeart } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 import { LikeListingItem } from '../components/listingItem/likeListingItem'
+import { Pagination } from '../components/pagination'
 
 import { useAllListings } from '../utils/hooks/useAllListings'
 import { useAuthStatus } from '../utils/hooks/useAuthStatus'
@@ -12,6 +13,16 @@ export const Likes = () => {
 	const res = isUserAuth.loggedIn
 
 	const { allListings, loading } = useAllListings()
+
+	const [currentPage, setCurrentPage] = useState(1)
+	// const [postPerPage] = useState(6)
+	// const paginate = pageNumber => setCurrentPage(pageNumber)
+	// let currentListing
+	// if (allListings) {
+	// 	const indexOfLastListing = currentPage * postPerPage
+	// 	const indexOfFirstListing = indexOfLastListing - postPerPage
+	// 	currentListing = allListings.slice(indexOfFirstListing, indexOfLastListing)
+	// }
 
 	return !loading ? (
 		<div className='likes'>
@@ -31,16 +42,25 @@ export const Likes = () => {
 									<h1>Все объявления</h1>
 								</div>
 								{allListings && allListings.length > 0 ? (
-									<div className='yourSel'>
-										<ul className='selHouse'>
-											{allListings.map(listing => (
-												<LikeListingItem
-													key={listing.id}
-													listing={listing.data}
-													id={listing.id}
-												/>
-											))}
-										</ul>
+									<div>
+										<div className='yourSel'>
+											<ul className='selHouse'>
+												{allListings.map(listing => (
+													<LikeListingItem
+														key={listing.id}
+														listing={listing.data}
+														id={listing.id}
+													/>
+												))}
+											</ul>
+										</div>
+										{/* <div>
+											<Pagination
+												paginate={paginate}
+												postPerPage={postPerPage}
+												totalPosts={allListings.length}
+											/>
+										</div> */}
 									</div>
 								) : (
 									<div className='mt-14 text-2xl font-semibold'>
