@@ -1,10 +1,16 @@
-import { useContext, useState } from 'react'
+import { FC, useContext, useState } from 'react'
 import { RiShareLine } from 'react-icons/ri'
 import { toast } from 'react-toastify'
 import { AuthContext } from '../../context/authContext'
 import { useToggleLike } from '../../utils/hooks/likes/useLike'
 import { FaComment, FaHeart, FaRegComment, FaRegHeart } from 'react-icons/fa'
 import { useComments } from '../../utils/hooks/comments/useComments'
+import { IListings } from '../../commons/types/listingsTypes'
+
+// interface IListing{
+// 	likes:[]
+// 	id: string
+// }
 
 export const Actions = listing => {
 	const [shareLinkCopied, setShareLinkCopied] = useState(false)

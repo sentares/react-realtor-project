@@ -11,16 +11,17 @@ import {
 	setActiveTag,
 	setActiveType,
 } from '../redux/slices/filterSlice'
+import { selectFilter } from '../redux/slices/reducers/filterReducer'
 import { LoaderElement } from '../utils/loader/loader'
 
 export const Offers = () => {
 	const dispatch = useDispatch()
 
-	const activeSort = useSelector(state => state.filter.activeSort)
-	const activeOffer = useSelector(state => state.filter.activeOffer)
-	const activeType = useSelector(state => state.filter.activeType)
-	const activeDescAndAsc = useSelector(state => state.filter.activeDescAndAsc)
-	const activeTag = useSelector(state => state.filter.activeTag)
+	const { activeSort } = useSelector(selectFilter)
+	const { activeOffer } = useSelector(selectFilter)
+	const { activeType } = useSelector(selectFilter)
+	const { activeDescAndAsc } = useSelector(selectFilter)
+	const { activeTag } = useSelector(selectFilter)
 
 	const onChangeActiveType = id => {
 		dispatch(setActiveType(id))
@@ -30,10 +31,6 @@ export const Offers = () => {
 	}
 	const onChangeActiveTag = id => {
 		dispatch(setActiveTag(id))
-	}
-
-	const onChangeActiveIcon = id => {
-		dispatch(setActiveDescAndAsc(id))
 	}
 
 	let typeValue = trueType()
@@ -140,7 +137,6 @@ export const Offers = () => {
 				onChangeActiveType={onChangeActiveType}
 				onChangeActiveOffer={onChangeActiveOffer}
 				onChangeActiveTag={onChangeActiveTag}
-				onChangeActiveIcon={onChangeActiveIcon}
 			/>
 
 			<section className='mySel'>

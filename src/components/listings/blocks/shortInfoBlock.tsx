@@ -1,10 +1,18 @@
+import { FC } from 'react'
 import { BiBath } from 'react-icons/bi'
 import { FaParking } from 'react-icons/fa'
 import { GiSofa } from 'react-icons/gi'
 import { MdOutlineBed } from 'react-icons/md'
 import { TbParkingOff } from 'react-icons/tb'
 
-export const ShortInfoBlock = listing => {
+interface IListing {
+	bathrooms: string
+	bedrooms: string
+	furnished: boolean
+	parking: boolean
+}
+
+export const ShortInfoBlock: FC<IListing> = listing => {
 	return (
 		<div className='shortInfo'>
 			<div className='infoElements shadow-xl'>

@@ -1,5 +1,3 @@
-import React from 'react'
-import { FaUserCircle } from 'react-icons/fa'
 import { useComments } from '../../../utils/hooks/comments/useComments'
 import { Comment } from './comment'
 

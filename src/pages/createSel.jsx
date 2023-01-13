@@ -12,6 +12,7 @@ import { addDoc, collection, serverTimestamp } from 'firebase/firestore'
 import { db } from '../firebase'
 import { useNavigate } from 'react-router-dom'
 import { LoaderElement } from '../utils/loader/loader'
+import { GenerateText } from '../components/createSel/generateText'
 
 export const CreateSel = () => {
 	const navigate = useNavigate()
@@ -108,8 +109,6 @@ export const CreateSel = () => {
 				uploadTask.on(
 					'state_changed',
 					snapshot => {
-						// Observe state change events such as progress, pause, and resume
-						// Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
 						const progress =
 							(snapshot.bytesTransferred / snapshot.totalBytes) * 100
 						console.log('Upload is ' + progress + '% done')
@@ -160,11 +159,14 @@ export const CreateSel = () => {
 		navigate(`/category/${formDataCopy.type}/${docRef.id}`)
 	}
 
+	const [openGenerate, setOpenGenerate] = useState(false)
+
 	if (loading) {
 		return <LoaderElement />
 	}
 	return (
 		<main>
+			{openGenerate && <GenerateText />}
 			<h1>Создайте обьявление</h1>
 			<form onSubmit={onSubmit}>
 				<p>Продажа / Аренда</p>
@@ -320,6 +322,11 @@ export const CreateSel = () => {
 					placeholder='Опишите дом/квартиру'
 					required
 				/>
+				<div className='generate'>
+					<button onClick={() => setOpenGenerate(true)}>
+						Сгенерировать описание
+					</button>
+				</div>
 				<p>Площадь м²</p>
 				<input
 					type='number'

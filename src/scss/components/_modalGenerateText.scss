@@ -1,0 +1,107 @@
+.generateTextPopup {
+	height: 100%;
+	width: 100%;
+	background-color: rgba(0, 0, 0, 0.3);
+	position: fixed;
+	align-items: center;
+	top: 0;
+	left: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	z-index: 20;
+	.content {
+		padding: 20px;
+		border-radius: 12px;
+		background-color: white;
+		height: 560px;
+		width: 760px;
+		.close {
+			align-items: flex-start;
+			justify-content: flex-end;
+			display: flex;
+			.closeIcon {
+				color: $gray-color;
+				font-size: 24px;
+				font-weight: 700;
+				@apply hover:text-red-800;
+			}
+		}
+		.generation {
+			max-width: 700px;
+			width: 100%;
+			font-size: 22px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			position: relative;
+			.textArea {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				width: 100%;
+				background-color: $bg-color;
+				border-radius: 8px;
+				padding: 15px;
+				margin-top: 15px;
+			}
+			.buttonBlock {
+				margin: 25px 0 10px 0;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				.activeButton {
+					@apply max-w-[260px] px-4 py-3 font-medium text-sm uppercase shadow-md rounded hover:shadow-lg focus:shadow-lg active:shadow-lg transition duration-150 ease-in-out w-full bg-teal-600 text-white hover:bg-teal-700;
+				}
+			}
+			.resBlock {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				position: relative;
+				.responseText {
+					position: relative;
+					.textAreaResult {
+						display: flex;
+						align-items: center;
+						justify-content: center;
+						width: 100%;
+						border-radius: 8px;
+						padding: 15px;
+						margin-top: 15px;
+						@apply bg-cyan-800;
+						color: white;
+					}
+					.copyButton {
+						top: 90%;
+						left: 95%;
+						position: absolute;
+						padding: 8px;
+						border-radius: 100%;
+						@apply shadow-md bg-emerald-200 text-slate-800 hover:bg-slate-800 hover:text-emerald-200;
+						.copyIcon {
+						}
+					}
+				}
+				.textAreaWait {
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					width: 100%;
+					@apply bg-cyan-800;
+					color: white;
+					border-radius: 8px;
+					padding: 15px;
+					margin-top: 15px;
+				}
+				.loaderElement {
+					position: absolute;
+					top: -150px;
+					display: flex;
+					align-items: center;
+					justify-content: center;
+				}
+			}
+		}
+	}
+}

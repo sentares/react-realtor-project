@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { useEffect } from 'react'
 import { toast } from 'react-toastify'
 import { db } from '../firebase'
+import { FC } from 'react'
 
 export const Contact = ({ userRef }) => {
 	const [landlord, setLandlord] = useState(null)

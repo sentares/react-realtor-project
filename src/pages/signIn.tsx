@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { FC, useState } from 'react'
 import { AiFillHome } from 'react-icons/ai'
 import { MdEmail } from 'react-icons/md'
 import { Link, useNavigate } from 'react-router-dom'
@@ -6,20 +6,20 @@ import { GoogleAuth } from '../components/auth/googleAuth'
 import { signInWithEmailAndPassword, getAuth } from 'firebase/auth'
 import { toast } from 'react-toastify'
 
-export const SignIn = () => {
+export const SignIn: FC = (): JSX.Element => {
 	const [formData, setFormData] = useState({
 		email: '',
 		password: '',
 	})
 	const { email, password } = formData
 	const navigate = useNavigate()
-	function onChange(e) {
+	function onChange(e: { target: { id: string; value: string } }) {
 		setFormData(prevState => ({
 			...prevState,
 			[e.target.id]: e.target.value,
 		}))
 	}
-	async function onSubmit(e) {
+	async function onSubmit(e: { preventDefault: () => void }) {
 		e.preventDefault()
 		try {
 			const auth = getAuth()

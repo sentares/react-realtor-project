@@ -116,7 +116,13 @@ export const Listing = () => {
 						{listing.type === 'rent' && ' / месяц'}
 					</div>
 				</div>
-				<ShortInfoBlock listing={listing} />
+				<ShortInfoBlock
+					listing={listing}
+					furnished={listing.furnished}
+					bathrooms={listing.bathrooms}
+					bedrooms={listing.bedrooms}
+					parking={listing.parking}
+				/>
 			</section>
 
 			<section className='textInfo'>

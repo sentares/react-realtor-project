@@ -3,8 +3,9 @@ import { doc, serverTimestamp, setDoc, getDoc } from 'firebase/firestore'
 import { useNavigate } from 'react-router-dom'
 import { db } from '../../firebase'
 import { toast } from 'react-toastify'
+import { FC } from 'react'
 
-export const GoogleAuth = () => {
+export const GoogleAuth: FC = (): JSX.Element => {
 	const navigate = useNavigate()
 	async function onGoogleClick() {
 		try {

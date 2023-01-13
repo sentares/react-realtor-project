@@ -8,19 +8,24 @@ import { useNavigate } from 'react-router-dom'
 import { LoaderElement } from '../../utils/loader/loader'
 import 'swiper/css/bundle'
 
-export const Slider = () => {
-	const [listings, setListings] = useState(null)
+type Listing = {
+	id: string
+	data: any
+}
+
+export const Slider = (): JSX.Element => {
+	const [listings, setListings] = useState<Listing[] | null>(null)
 	const [loading, setLoading] = useState(true)
 
 	SwiperCore.use([Autoplay, Navigation, Pagination])
 	const navigate = useNavigate()
 
 	useEffect(() => {
-		async function fetchListings() {
+		const fetchListings = async (): Promise<void> => {
 			const listingsRef = collection(db, 'listings')
 			const q = query(listingsRef, orderBy('timestamp', 'desc'), limit(5))
 			const querySnap = await getDocs(q)
-			let listings = []
+			let listings: Listing[] = []
 			querySnap.forEach(doc => {
 				return listings.push({
 					id: doc.id,
@@ -32,41 +37,44 @@ export const Slider = () => {
 		}
 		fetchListings()
 	}, [])
+
 	if (loading) {
 		return <LoaderElement />
 	}
-	if (listings.length === 0) {
+	if (listings?.length === 0) {
 		return <></>
 	}
 
 	return (
-		listings && (
-			<div className='swiperPh'>
-				<Swiper slidesPerView={1} pagination={{ clickable: true }}>
-					{listings.map(({ data, id }) => (
-						<SwiperSlide
-							key={id}
-							onClick={() => navigate(`/category/${data.type}/${id}`)}
-						>
-							<div
-								className='swiperSlidePh'
-								style={{
-									background: `url(${data.imgUrls[0]}) center no-repeat`,
-									backgroundSize: 'cover',
-								}}
+		<>
+			{listings && (
+				<div className='swiperPh'>
+					<Swiper slidesPerView={1} pagination={{ clickable: true }}>
+						{listings.map(({ data, id }) => (
+							<SwiperSlide
+								key={id}
+								onClick={() => navigate(`/category/${data.type}/${id}`)}
 							>
-								<div className='info'>
-									<p className='text'>{data.name}</p>
-									<p className='price'>
-										${data.discountedPrice ?? data.regularPrice}
-										{data.type === 'rent' && '/ Мес'}
-									</p>
+								<div
+									className='swiperSlidePh'
+									style={{
+										background: `url(${data.imgUrls[0]}) center no-repeat`,
+										backgroundSize: 'cover',
+									}}
+								>
+									<div className='info'>
+										<p className='text'>{data.name}</p>
+										<p className='price'>
+											${data.discountedPrice ?? data.regularPrice}
+											{data.type === 'rent' && '/ Мес'}
+										</p>
+									</div>
 								</div>
-							</div>
-						</SwiperSlide>
-					))}
-				</Swiper>
-			</div>
-		)
+							</SwiperSlide>
+						))}
+					</Swiper>
+				</div>
+			)}
+		</>
 	)
 }

@@ -1,6 +1,7 @@
+import { FC } from 'react'
 import { Link } from 'react-router-dom'
 
-export const BlueZone = (): JSX.Element => {
+export const BlueZone: FC = (): JSX.Element => {
 	return (
 		<section className='blueZone'>
 			<div className='mainText'>

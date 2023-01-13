@@ -1,5 +1,12 @@
-import { collection, getDocs, orderBy, query } from 'firebase/firestore'
-import { useEffect, useState } from 'react'
+import {
+	collection,
+	DocumentData,
+	getDocs,
+	orderBy,
+	query,
+} from 'firebase/firestore'
+import { FC, SetStateAction, useEffect, useState } from 'react'
+import { IListings } from '../../commons/types/listingsTypes'
 import { db } from '../../firebase'
 
 export function useAllListings() {
@@ -12,7 +19,7 @@ export function useAllListings() {
 				const listingsRef = collection(db, 'listings')
 				const q = query(listingsRef, orderBy('timestamp', 'asc'))
 				const querySnap = await getDocs(q)
-				const listings = []
+				const listings: any = []
 
 				querySnap.forEach(doc => {
 					return listings.push({

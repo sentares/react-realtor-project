@@ -1,6 +1,6 @@
-import { initializeApp } from 'firebase/app'
-import { getFirestore } from 'firebase/firestore'
-import { getStorage } from 'firebase/storage'
+import { FirebaseApp, initializeApp } from 'firebase/app'
+import { Firestore, getFirestore } from 'firebase/firestore'
+// import { getStorage } from 'firebase/storage'
 
 const firebaseConfig = {
 	apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -11,16 +11,7 @@ const firebaseConfig = {
 	appId: process.env.REACT_APP_FIREBASE_APP_ID,
 	measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
 }
-// const firebaseConfig = {
-// 	apiKey: 'AIzaSyCeN1OG20LHodqImgTLth029Yqtuf-DvtI',
-// 	authDomain: 'realtor-project-c895c.firebaseapp.com',
-// 	projectId: 'realtor-project-c895c',
-// 	storageBucket: 'realtor-project-c895c.appspot.com',
-// 	messagingSenderId: '707376208185',
-// 	appId: '1:707376208185:web:084c939d337a491254f0e8',
-// 	measurementId: 'G-ZH3ZFN62JP',
-// }
 
-export const app = initializeApp(firebaseConfig)
-export const db = getFirestore(app)
-export const storage = getStorage()
+export const app: FirebaseApp = initializeApp(firebaseConfig)
+export const db: Firestore = getFirestore(app)
+// export const storage: Storage = getStorage()

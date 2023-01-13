@@ -5,7 +5,6 @@ import { db } from '../../../firebase'
 
 export function useToggleLike({ id, isLiked, uid }) {
 	const [isLoading, setLoading] = useState(false)
-	// useEffect(() => {
 	async function toggleLike() {
 		setLoading(true)
 		try {
@@ -19,7 +18,5 @@ export function useToggleLike({ id, isLiked, uid }) {
 			console.log(error)
 		}
 	}
-	// toggleLike()
-	// }, [])
-	return { toggleLike, isLoading }
+	return { toggleLike, isLoading, isLiked }
 }

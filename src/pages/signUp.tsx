@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React, { FC, useState } from 'react'
 import { AiFillHome } from 'react-icons/ai'
 import { MdEmail } from 'react-icons/md'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import {
 	getAuth,
 	createUserWithEmailAndPassword,
@@ -9,26 +9,34 @@ import {
 } from 'firebase/auth'
 import { db } from '../firebase'
 import { serverTimestamp, setDoc, doc } from 'firebase/firestore'
-import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { GoogleAuth } from '../components/auth/googleAuth'
 
-export const SignUp = () => {
+interface FormData {
+	name: string
+	email: string
+	password: string
+	timestamp?: any
+	uid?: string
+}
+
+export const SignUp: FC = (): JSX.Element => {
 	const navigate = useNavigate()
-	const [formData, setFormData] = useState({
+	const [formData, setFormData] = useState<FormData>({
 		name: '',
 		email: '',
 		password: '',
 	})
 	const { name, email, password } = formData
-	function onChange(e) {
+
+	function onChange(e: React.ChangeEvent<HTMLInputElement>) {
 		setFormData(prevState => ({
 			...prevState,
 			[e.target.id]: e.target.value,
 		}))
 	}
 
-	async function onSubmit(e) {
+	async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
 		e.preventDefault()
 		try {
 			const auth = getAuth()
@@ -37,22 +45,26 @@ export const SignUp = () => {
 				email,
 				password
 			)
-			updateProfile(auth.currentUser, {
-				displayName: name,
-			})
+			if (auth.currentUser) {
+				updateProfile(auth.currentUser, {
+					displayName: name,
+				})
+			}
 			const user = userCredential.user
-			const formDataCopy = { ...formData }
-			delete formDataCopy.password
-			formDataCopy.timestamp = serverTimestamp()
-			formDataCopy.uid = user.uid
-			await setDoc(doc(db, 'users', user.uid), formDataCopy)
-
-			toast.success('регистрация прошла успешно!')
+			if (user) {
+				const formDataCopy = { ...formData }
+				// delete formDataCopy.password
+				formDataCopy.timestamp = serverTimestamp()
+				formDataCopy.uid = user.uid
+				await setDoc(doc(db, 'users', user.uid), formDataCopy)
+			}
+			toast.success('Успешная регистрация!')
 			navigate('/')
 		} catch (error) {
-			toast.error('что-то пошло не так(')
+			toast.error('Профиль с таким email-ом уже существует')
 		}
 	}
+
 	return (
 		<div className='signUp'>
 			<div className='bg-white lg:w-5/12 md:6/12 w-10/12 shadow-3xl rounded-xl'>

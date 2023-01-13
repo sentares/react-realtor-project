@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
 import { AiFillHome } from 'react-icons/ai'
@@ -6,13 +6,15 @@ import { MdSell } from 'react-icons/md'
 import { FaHeart, FaSearch, FaUserCircle } from 'react-icons/fa'
 import { GoSignIn } from 'react-icons/go'
 
-export const NavHeader = () => {
+interface Props {}
+
+export const NavHeader: FC<Props> = (): JSX.Element => {
 	const location = useLocation()
 	const navigate = useNavigate()
-	const [pagesState, setPageState] = useState('Войти')
+	const [pagesState, setPageState] = useState<JSX.Element>(<GoSignIn />)
 	const auth = getAuth()
 
-	function pathMatchRoute(route) {
+	function pathMatchRoute(route: string) {
 		if (route === location.pathname) {
 			return true
 		}
