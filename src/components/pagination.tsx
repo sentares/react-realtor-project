@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
 
 interface IPaginate {
 	postPerPage: number
@@ -11,6 +11,8 @@ export const Pagination: FC<IPaginate> = ({
 	totalPosts,
 	paginate,
 }) => {
+	const [currentPage, setCurrentPage] = useState(1)
+
 	const pageNumbers = []
 	for (let i = 1; i <= Math.ceil(totalPosts / postPerPage); i++) {
 		pageNumbers.push(i)
@@ -20,14 +22,16 @@ export const Pagination: FC<IPaginate> = ({
 		<div className='pagination'>
 			<ul className='paginationList'>
 				{pageNumbers.map(number => (
-					<a
-						onClick={() => paginate(number)}
-						className={paginate ? 'active' : 'pageLink'}
+					<li
+						key={number}
+						onClick={() => {
+							setCurrentPage(number)
+							paginate(number)
+						}}
+						className={`pageLink ${currentPage === number ? 'active' : ''}`}
 					>
-						<li key={number} className='pageItem'>
-							{number}
-						</li>
-					</a>
+						{number}
+					</li>
 				))}
 			</ul>
 		</div>

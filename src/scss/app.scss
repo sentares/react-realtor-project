@@ -1,1 +1,14 @@
 @import './components/all';
+.wrapper {
+	.content {
+		.container {
+			max-width: 2500px;
+			button {
+				transition: 0.3s;
+			}
+			li {
+				transition: 0.3s;
+			}
+		}
+	}
+}

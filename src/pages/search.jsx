@@ -8,7 +8,7 @@ import { Pagination } from '../components/pagination'
 export const Search = () => {
 	const [searchValue, setSearchValue] = useState('')
 	const [currentPage, setCurrentPage] = useState(1)
-	const [postPerPage] = useState(6)
+	const [postPerPage] = useState(12)
 	const { allListings, loading } = useAllListings()
 	const paginate = pageNumber => setCurrentPage(pageNumber)
 	let currentListing

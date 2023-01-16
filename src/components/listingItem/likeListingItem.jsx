@@ -29,7 +29,6 @@ export const LikeListingItem = ({ listing, id, onEdit, onDelete }) => {
 		}
 	}
 	const { toggleLike, isLoading: likeLoading } = useToggleLike(config)
-	const post = listing
 	const res = isLiked()
 
 	return (

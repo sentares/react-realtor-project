@@ -11,17 +11,12 @@ import { LoaderElement } from './utils/loader/loader'
 import { CreateSel } from './pages/createSel'
 import { EditListing } from './pages/editListing'
 import { Listing } from './pages/listings'
+import { Likes } from './pages/likes'
+import { Search } from './pages/search'
 import './scss/app.scss'
 import 'react-toastify/dist/ReactToastify.css'
 
-import { useContext } from 'react'
-import { AuthContext } from './context/authContext'
-import { Likes } from './pages/likes'
-import { Search } from './pages/search'
-
 function App() {
-	const { currentUser } = useContext(AuthContext)
-
 	return (
 		<>
 			<div className='wrapper'>

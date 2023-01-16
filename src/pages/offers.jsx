@@ -7,12 +7,18 @@ import { Sorting } from '../components/offers/sorting'
 import { Pagination } from '../components/pagination'
 import { db } from '../firebase'
 import {
-	setActiveDescAndAsc,
 	setActiveOffer,
 	setActiveTag,
 	setActiveType,
 } from '../redux/slices/filterSlice'
 import { selectFilter } from '../redux/slices/reducers/filterReducer'
+import {
+	useTrueIcon,
+	useTrueOffer,
+	useTrueSort,
+	useTrueTag,
+	useTrueType,
+} from '../utils/hooks/sortOffer/useValueOfSorting'
 import { LoaderElement } from '../utils/loader/loader'
 
 export const Offers = () => {
@@ -34,56 +40,15 @@ export const Offers = () => {
 		dispatch(setActiveTag(id))
 	}
 
-	let typeValue = trueType()
-	function trueType() {
-		if (activeType === 0) {
-			return ''
-		} else if (activeType === 1) {
-			return 'sale'
-		} else {
-			return 'rent'
-		}
-	}
+	let typeValue = useTrueType(activeType)
 
-	let offerValue = trueOffer()
-	function trueOffer() {
-		if (activeOffer === 0) {
-			return true
-		} else {
-			return false
-		}
-	}
+	let offerValue = useTrueOffer(activeOffer)
 
-	let sortValue = trueSort()
-	function trueSort() {
-		if (activeSort.sortProperty === 'timestamp') {
-			return 'timestamp'
-		} else if (activeSort.sortProperty === 'regularPrice') {
-			return 'regularPrice'
-		} else if (activeSort.sortProperty === 'area') {
-			return 'area'
-		}
-	}
+	let sortValue = useTrueSort(activeSort)
 
-	let sortIcon = trueIcon()
-	function trueIcon() {
-		if (activeDescAndAsc === 0) {
-			return 'desc'
-		} else {
-			return 'asc'
-		}
-	}
+	let sortIcon = useTrueIcon(activeDescAndAsc)
 
-	let tagValue = trueTag()
-	function trueTag() {
-		if (activeTag === 0) {
-			return ''
-		} else if (activeTag === 1) {
-			return 'Дом'
-		} else {
-			return 'Квартира'
-		}
-	}
+	let tagValue = useTrueTag(activeTag)
 
 	const [loading, setLoading] = useState(true)
 	const [allListings, setAllListings] = useState(null)
@@ -149,7 +114,11 @@ export const Offers = () => {
 				onChangeActiveOffer={onChangeActiveOffer}
 				onChangeActiveTag={onChangeActiveTag}
 			/>
-
+			<div className='choseBlock'>
+				<div className='nameBlock'>
+					<h1 className='whatChose'>Найдено {allListings.length}</h1>
+				</div>
+			</div>
 			<section className='mySel'>
 				<div className='selBlock'>
 					<div className='text'>

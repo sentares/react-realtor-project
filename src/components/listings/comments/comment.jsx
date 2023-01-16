@@ -3,6 +3,7 @@ import { FaTrash, FaUserCircle } from 'react-icons/fa'
 import { useDeleteComment } from '../../../utils/hooks/comments/useComments'
 import { useUser } from '../../../utils/hooks/users/useUser'
 import { useUserUid } from '../../../utils/hooks/userUid'
+import { LoaderElement } from '../../../utils/loader/loader'
 
 export function Comment({ comment }) {
 	const { text, uid, date, id } = comment
@@ -11,7 +12,7 @@ export function Comment({ comment }) {
 
 	const myUid = useUserUid()
 
-	if (isLoading) return 'Загрузка'
+	if (isLoading) return <LoaderElement />
 	return (
 		<div
 			className={myUid.uid === uid ? 'allComments bg-green-50' : 'allComments'}

@@ -2,12 +2,11 @@ import { Configuration, OpenAIApi } from 'openai'
 import { useState } from 'react'
 import { MdContentCopy, MdOutlineClose } from 'react-icons/md'
 import { toast } from 'react-toastify'
-import { LoaderElement } from '../../utils/loader/loader'
+import { LoaderElement } from '../utils/loader/loader'
 
 const configuration = new Configuration({
 	organization: 'org-j5D24Df31GtAObzMePX9ZDma',
-	apiKey: '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',
-	// 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
+	apiKey: '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',
 })
 const openai = new OpenAIApi(configuration)
 
@@ -16,15 +15,18 @@ export const GenerateText = () => {
 	const [prompt, setPrompt] = useState('')
 	const [textResult, setTextResult] = useState('')
 	const [loading, setLoading] = useState(false)
+
 	const copyText = () => {
-		const text = document.getElementById('text-to-copy').innerText
-		const tempInput = document.createElement('input')
-		tempInput.value = text
-		document.body.appendChild(tempInput)
-		tempInput.select()
-		document.execCommand('copy')
-		document.body.removeChild(tempInput)
-		toast.success('текст скопирован')
+		if (textResult) {
+			const text = document.getElementById('textToCopy').innerText
+			const tempInput = document.createElement('input')
+			tempInput.value = text
+			document.body.appendChild(tempInput)
+			tempInput.select()
+			document.execCommand('copy')
+			document.body.removeChild(tempInput)
+			toast.success('текст скопирован')
+		}
 	}
 
 	const callApi = async () => {
@@ -80,7 +82,7 @@ export const GenerateText = () => {
 										<>
 											{textResult ? (
 												<div className='responseText'>
-													<div id='text-to-copy' className='textAreaResult'>
+													<div id='textToCopy' className='textAreaResult'>
 														{textResult}
 														<button className='copyButton' onClick={copyText}>
 															<MdContentCopy className='copyIcon' />

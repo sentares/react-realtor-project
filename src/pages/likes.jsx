@@ -2,8 +2,6 @@ import { useState } from 'react'
 import { FaHeart } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 import { LikeListingItem } from '../components/listingItem/likeListingItem'
-import { Pagination } from '../components/pagination'
-
 import { useAllListings } from '../utils/hooks/useAllListings'
 import { useAuthStatus } from '../utils/hooks/useAuthStatus'
 import { LoaderElement } from '../utils/loader/loader'
@@ -13,16 +11,6 @@ export const Likes = () => {
 	const res = isUserAuth.loggedIn
 
 	const { allListings, loading } = useAllListings()
-
-	const [currentPage, setCurrentPage] = useState(1)
-	// const [postPerPage] = useState(6)
-	// const paginate = pageNumber => setCurrentPage(pageNumber)
-	// let currentListing
-	// if (allListings) {
-	// 	const indexOfLastListing = currentPage * postPerPage
-	// 	const indexOfFirstListing = indexOfLastListing - postPerPage
-	// 	currentListing = allListings.slice(indexOfFirstListing, indexOfLastListing)
-	// }
 
 	return !loading ? (
 		<div className='likes'>
@@ -54,13 +42,6 @@ export const Likes = () => {
 												))}
 											</ul>
 										</div>
-										{/* <div>
-											<Pagination
-												paginate={paginate}
-												postPerPage={postPerPage}
-												totalPosts={allListings.length}
-											/>
-										</div> */}
 									</div>
 								) : (
 									<div className='mt-14 text-2xl font-semibold'>

@@ -1,12 +1,8 @@
 import { useContext } from 'react'
 import { useForm } from 'react-hook-form'
 import { BiSend } from 'react-icons/bi'
-import { FaUserCircle } from 'react-icons/fa'
 import { AuthContext } from '../../../context/authContext'
-import {
-	useAddComment,
-	useComments,
-} from '../../../utils/hooks/comments/useComments'
+import { useAddComment } from '../../../utils/hooks/comments/useComments'
 import CommentList from './commentList'
 
 export const Comments = listing => {
@@ -26,7 +22,6 @@ export const Comments = listing => {
 		reset()
 	}
 
-	// const { comments, isLoadingComments } = useComments(postId)
 	return (
 		<div className='comments'>
 			<div className='addComment'>

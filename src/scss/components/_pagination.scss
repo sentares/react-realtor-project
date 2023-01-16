@@ -7,28 +7,26 @@
 		gap: 15px;
 		display: flex;
 		.pageLink {
+			background-color: #edeff6;
+			color: $button-color;
+			font-size: 20px;
+			font-weight: 600;
+			padding: 10px 20px;
+			border-radius: 5px;
+			@apply hover:bg-[#4A60A1] hover:text-white shadow-md;
+			transition: 0.3s;
+
 			cursor: pointer;
-			.pageItem {
-				background-color: #edeff6;
-				color: $button-color;
-				font-size: 20px;
-				font-weight: 600;
-				padding: 10px 20px;
-				border-radius: 5px;
-				@apply hover:bg-[#4A60A1] hover:text-white shadow-md;
-			}
 		}
 		.active {
+			background-color: #3d4d7d;
+			color: white;
+			font-size: 20px;
+			font-weight: 600;
+			padding: 10px 20px;
+			border-radius: 5px;
+			@apply hover:bg-[#4A60A1] hover:text-white shadow-md;
 			cursor: pointer;
-			.pageItem {
-				background-color: $second-color;
-				color: white;
-				font-size: 20px;
-				font-weight: 600;
-				padding: 10px 20px;
-				border-radius: 5px;
-				@apply hover:bg-[#4A60A1] hover:text-white shadow-md;
-			}
 		}
 	}
 }

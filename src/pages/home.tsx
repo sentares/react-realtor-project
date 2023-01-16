@@ -1,6 +1,7 @@
 import { FC } from 'react'
 import { Slider } from '../components/homePage/slider'
 import { BlueZone } from '../components/homePage/BlueZone'
+import { SliderArea } from '../components/homePage/sliderArea'
 
 export const Home: FC = (): JSX.Element => {
 	return (
@@ -38,6 +39,12 @@ export const Home: FC = (): JSX.Element => {
 					<div className='content'>
 						<div className='name'>Недавние</div>
 						<Slider />
+					</div>
+				</section>
+				<section className='slider'>
+					<div className='content'>
+						<div className='name'>Самые большие</div>
+						<SliderArea />
 					</div>
 				</section>
 			</div>

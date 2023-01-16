@@ -81,6 +81,8 @@
 					display: flex;
 					gap: 35px;
 					.blog {
+						@apply hover:bg-[#afc3ff];
+						transition: 0.9s;
 						border-radius: 6px;
 						padding: 10px;
 						background-color: white;
@@ -150,6 +152,20 @@
 								font-size: 22px;
 								font-weight: 600;
 							}
+						}
+						.area {
+							display: flex;
+							align-items: center;
+							position: absolute;
+							gap: px;
+							top: 10px;
+							right: 10px;
+							padding: 8px 10px;
+							border-radius: 10px;
+							background-color: white;
+							opacity: 0.8;
+							font-size: 22px;
+							font-weight: 600;
 						}
 					}
 				}

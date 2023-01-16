@@ -13,9 +13,15 @@ import { useState } from 'react'
 import { toast } from 'react-toastify'
 import { db } from '../../../firebase'
 
-export function useAddComment({ postId, uid }) {
+export function useAddComment({
+	postId,
+	uid,
+}: {
+	postId: string
+	uid: string
+}) {
 	const [isLoading, setLoading] = useState(false)
-	async function addComment(text) {
+	async function addComment(text: string) {
 		try {
 			setLoading(true)
 			const id = uuidv4()
@@ -33,7 +39,7 @@ export function useAddComment({ postId, uid }) {
 	return { addComment, isLoading }
 }
 
-export function useComments(postId) {
+export function useComments(postId: string) {
 	const q = query(
 		collection(db, 'comments'),
 		where('postId', '==', postId),
@@ -47,7 +53,7 @@ export function useComments(postId) {
 	return { comments, isLoading }
 }
 
-export function useDeleteComment(id) {
+export function useDeleteComment(id: string) {
 	async function deleteComment() {
 		const res = window.confirm('Вы уверены, что хотите удалить комментарии?')
 

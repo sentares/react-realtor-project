@@ -133,34 +133,6 @@ export const Sorting = ({
 						)}
 					</div>
 				</div>
-
-				{/* {activeSort.name === 'Цене' && (
-					<div className='bedAndBath'>
-						<div>
-							<p>От</p>
-							<input
-								type='number'
-								id='bedrooms'
-								min='100'
-								max='4000000'
-								required
-								className='numbers'
-							/>
-						</div>
-						<div>
-							<p>До</p>
-							<input
-								type='number'
-								id='bathrooms'
-								min='1000'
-								max='5000000'
-								required
-								className='numbers'
-							/>
-						</div>
-					</div>
-				)} */}
-
 				<div className='typeBlock'>
 					<ul>
 						{type.map((value, i) => (
@@ -203,7 +175,7 @@ export const Sorting = ({
 					</ul>
 				</div>
 			</div>
-			<div className='choseBlock'>
+			{/* <div className='choseBlock'>
 				<div className='nameBlock'>
 					<h1 className='whatChose'>{nameType}</h1>
 				</div>
@@ -216,7 +188,7 @@ export const Sorting = ({
 				<div className='lastNameBlock'>
 					<h1 className='whatChose'>По: {activeSort.name}</h1>
 				</div>
-			</div>
+			</div> */}
 		</section>
 	)
 }

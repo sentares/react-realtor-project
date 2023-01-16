@@ -55,12 +55,14 @@
 						li {
 							margin: 5px 2px;
 							padding: 5px 5px;
+							transition: 0.3s;
 						}
 						:hover {
 							background-color: #efeeed;
 							border-radius: 5px;
 							color: black;
 							@apply shadow-md;
+							transition: 0.3s;
 						}
 					}
 					.active {
@@ -102,6 +104,7 @@
 							border-radius: 5px;
 							color: black;
 							@apply shadow-md;
+							transition: 0.3s;
 						}
 					}
 					.active {
@@ -133,6 +136,7 @@
 						padding: 8px;
 						cursor: pointer;
 						@apply hover:bg-[#edeff6] hover:text-[#4a60a1];
+						transition: 0.3s;
 					}
 					.active {
 						@apply shadow-md;
@@ -147,10 +151,12 @@
 						padding: 0 10px;
 						letter-spacing: 0.5;
 						@apply hover:shadow-md;
+						transition: 0.3s;
 					}
 					.active {
 						@apply shadow-md;
 						font-weight: 600;
+						transition: 0.3s;
 					}
 				}
 			}
@@ -221,6 +227,14 @@
 			}
 		}
 	}
+	.choseBlock {
+		@apply flex mt-6 p-2 rounded-lg bg-[#2c3a61] text-white  mx-auto items-center justify-center shadow-md opacity-80 max-w-6xl;
+		h1 {
+			font-size: 20px;
+			font-weight: 600;
+		}
+	}
+
 	.mySel {
 		@apply mt-6 mx-auto flex items-center justify-center max-w-6xl;
 		h1 {

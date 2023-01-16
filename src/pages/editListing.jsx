@@ -12,6 +12,7 @@ import { doc, getDoc, serverTimestamp, updateDoc } from 'firebase/firestore'
 import { db } from '../firebase'
 import { useNavigate, useParams } from 'react-router-dom'
 import { LoaderElement } from '../utils/loader/loader'
+import { GenerateText } from '../components/generateText'
 
 export const EditListing = () => {
 	const navigate = useNavigate()
@@ -129,8 +130,6 @@ export const EditListing = () => {
 				uploadTask.on(
 					'state_changed',
 					snapshot => {
-						// Observe state change events such as progress, pause, and resume
-						// Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
 						const progress =
 							(snapshot.bytesTransferred / snapshot.totalBytes) * 100
 						console.log('Upload is ' + progress + '% done')
@@ -144,12 +143,9 @@ export const EditListing = () => {
 						}
 					},
 					error => {
-						// Handle unsuccessful uploads
 						reject(error)
 					},
 					() => {
-						// Handle successful uploads on complete
-						// For instance, get the download URL: https://firebasestorage.googleapis.com/...
 						getDownloadURL(uploadTask.snapshot.ref).then(downloadURL => {
 							resolve(downloadURL)
 						})
@@ -184,11 +180,15 @@ export const EditListing = () => {
 		navigate(`/category/${formDataCopy.type}/${docRef.id}`)
 	}
 
+	const [openGenerate, setOpenGenerate] = useState(false)
+
 	if (loading) {
 		return <LoaderElement />
 	}
+
 	return (
 		<main>
+			{openGenerate && <GenerateText />}
 			<h1>Измените обьявление</h1>
 			<form onSubmit={onSubmit}>
 				<p>Продажа / Аренда</p>
@@ -343,6 +343,11 @@ export const EditListing = () => {
 					placeholder='Опишите дом/квартиру'
 					required
 				/>
+				<div className='generate'>
+					<button onClick={() => setOpenGenerate(true)}>
+						Сгенерировать описание
+					</button>
+				</div>
 				<p>Площадь м²</p>
 				<input
 					type='number'

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { toast } from 'react-toastify'
 import {
 	getStorage,
@@ -12,7 +12,8 @@ import { addDoc, collection, serverTimestamp } from 'firebase/firestore'
 import { db } from '../firebase'
 import { useNavigate } from 'react-router-dom'
 import { LoaderElement } from '../utils/loader/loader'
-import { GenerateText } from '../components/createSel/generateText'
+import { GenerateText } from '../components/generateText'
+import { MyLocation } from '../components/Maps/myLocation'
 
 export const CreateSel = () => {
 	const navigate = useNavigate()
@@ -96,8 +97,8 @@ export const CreateSel = () => {
 		}
 
 		let geolocation = {
-			lat: 42.87134,
-			lng: 74.619064,
+			lat: latitude,
+			lng: longitude,
 		}
 
 		async function storeImage(image) {
@@ -160,6 +161,17 @@ export const CreateSel = () => {
 	}
 
 	const [openGenerate, setOpenGenerate] = useState(false)
+	const [openMaps, setOpenMaps] = useState(false)
+
+	const [latitude, setLatitude] = useState('')
+	const [longitude, setLongitude] = useState('')
+
+	useEffect(() => {
+		navigator.geolocation.getCurrentPosition(position => {
+			setLatitude(position.coords.latitude)
+			setLongitude(position.coords.longitude)
+		})
+	}, [])
 
 	if (loading) {
 		return <LoaderElement />
@@ -167,6 +179,7 @@ export const CreateSel = () => {
 	return (
 		<main>
 			{openGenerate && <GenerateText />}
+			{openMaps && <MyLocation />}
 			<h1>Создайте обьявление</h1>
 			<form onSubmit={onSubmit}>
 				<p>Продажа / Аренда</p>
@@ -313,6 +326,12 @@ export const CreateSel = () => {
 					placeholder='Адрес'
 					required
 				/>
+				<div className='generate'>
+					<button onClick={() => setOpenMaps(true)}>
+						Добавить местоположение
+					</button>
+				</div>
+
 				<p>Описание</p>
 				<textarea
 					type='text'

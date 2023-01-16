@@ -17,6 +17,7 @@ import {
 import { ListingItem } from '../components/listingItem/listingItem'
 import { LoaderElement } from '../utils/loader/loader'
 import { Pagination } from '../components/pagination'
+import { MyLocation } from '../components/Maps/myLocation'
 
 export const Profile = () => {
 	const [listings, setListings] = useState(null)

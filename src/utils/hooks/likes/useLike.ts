@@ -3,7 +3,15 @@ import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import { db } from '../../../firebase'
 
-export function useToggleLike({ id, isLiked, uid }) {
+export function useToggleLike({
+	id,
+	isLiked,
+	uid,
+}: {
+	id: string
+	isLiked: boolean
+	uid: string
+}) {
 	const [isLoading, setLoading] = useState(false)
 	async function toggleLike() {
 		setLoading(true)

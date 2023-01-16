@@ -1,10 +1,7 @@
 import React, { useState, useContext } from 'react'
-import Moment from 'react-moment'
 import { Link } from 'react-router-dom'
-import { FaMapMarkerAlt, FaUserCircle } from 'react-icons/fa'
+import { FaUserCircle } from 'react-icons/fa'
 import { MdFavorite, MdFavoriteBorder, MdOutlineBed } from 'react-icons/md'
-import { BiBath } from 'react-icons/bi'
-import { FaParking } from 'react-icons/fa'
 import { HiTrash } from 'react-icons/hi'
 import { BiEdit } from 'react-icons/bi'
 import { Contact } from '../contact'
@@ -17,10 +14,10 @@ import { InfoBlock } from './blocks/infoBlock'
 export const ListingItem = ({ listing, id, onEdit, onDelete }) => {
 	const [shareLinkCopied, setShareLinkCopied] = useState(false)
 	const { currentUser } = useContext(AuthContext)
-
 	const { likes } = listing
 
 	const isLiked = likes.includes(currentUser?.uid)
+
 	const config = {
 		id,
 		isLiked,
