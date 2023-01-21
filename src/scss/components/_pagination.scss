@@ -1,0 +1,32 @@
+.pagination {
+	margin: 25px 0 55px 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	.paginationList {
+		gap: 15px;
+		display: flex;
+		.pageLink {
+			background-color: #edeff6;
+			color: $button-color;
+			font-size: 20px;
+			font-weight: 600;
+			padding: 10px 20px;
+			border-radius: 5px;
+			@apply hover:bg-[#4A60A1] hover:text-white shadow-md;
+			transition: 0.3s;
+
+			cursor: pointer;
+		}
+		.active {
+			background-color: #3d4d7d;
+			color: white;
+			font-size: 20px;
+			font-weight: 600;
+			padding: 10px 20px;
+			border-radius: 5px;
+			@apply hover:bg-[#4A60A1] hover:text-white shadow-md;
+			cursor: pointer;
+		}
+	}
+}

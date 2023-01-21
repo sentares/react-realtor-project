@@ -13,6 +13,14 @@ main {
 				@apply max-w-[260px] px-4 py-3 font-medium text-sm uppercase shadow-md rounded hover:shadow-lg focus:shadow-lg active:shadow-lg transition duration-150 ease-in-out w-full;
 			}
 		}
+		.generate {
+			justify-content: end;
+			display: flex;
+			align-items: center;
+			button {
+				@apply bg-teal-600 text-white hover:bg-teal-700;
+			}
+		}
 		input {
 			@apply w-full px-4 py-2 text-xl text-gray-700 bg-gray-200 border border-gray-300 rounded transition duration-150 ease-in-out focus:text-gray-700 focus:bg-white focus:border-slate-600 mb-6;
 		}
