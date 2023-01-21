@@ -13,7 +13,7 @@ export const Actions = listing => {
 	const { likes } = listing
 	const { id } = listing
 
-	const isLiked = likes.includes(currentUser?.uid)
+	const [isLiked, setIsLiked] = useState(likes.includes(currentUser?.uid))
 	const config = {
 		id,
 		isLiked,
@@ -25,7 +25,10 @@ export const Actions = listing => {
 	return (
 		<>
 			<div className='likes'>
-				<button className='save' onClick={() => toggleLike()}>
+				<button
+					className='save'
+					onClick={() => (toggleLike(), setIsLiked(!isLiked))}
+				>
 					{isLiked ? (
 						<FaHeart className='likeOn' />
 					) : (

@@ -6,7 +6,7 @@ import { LoaderElement } from '../utils/loader/loader'
 
 const configuration = new Configuration({
 	organization: 'org-j5D24Df31GtAObzMePX9ZDma',
-	apiKey: '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',
+	apiKey: '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',
 })
 const openai = new OpenAIApi(configuration)
 

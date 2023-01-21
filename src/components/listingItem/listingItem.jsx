@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { FaUserCircle } from 'react-icons/fa'
 import { MdFavorite, MdFavoriteBorder, MdOutlineBed } from 'react-icons/md'
@@ -15,9 +15,8 @@ export const ListingItem = ({ listing, id, onEdit, onDelete }) => {
 	const [shareLinkCopied, setShareLinkCopied] = useState(false)
 	const { currentUser } = useContext(AuthContext)
 	const { likes } = listing
-
-	const isLiked = likes.includes(currentUser?.uid)
-
+	const [countLikes, setCountLikes] = useState(listing.likes.length)
+	const [isLiked, setIsLiked] = useState(likes.includes(currentUser?.uid))
 	const config = {
 		id,
 		isLiked,
@@ -67,8 +66,11 @@ export const ListingItem = ({ listing, id, onEdit, onDelete }) => {
 					</>
 				) : (
 					<div className='infoIcons'>
-						<div className='save' onClick={() => toggleLike()}>
-							<div className='countLikes'>{listing.likes.length}</div>
+						<div
+							className='save'
+							onClick={() => (toggleLike(), setIsLiked(!isLiked))}
+						>
+							<div className='countLikes'>{countLikes}</div>
 							{isLiked ? (
 								<MdFavorite className='likeOn' />
 							) : (

@@ -21,6 +21,7 @@ export const LikeListingItem = ({ listing, id, onEdit, onDelete }) => {
 		isLiked,
 		uid: currentUser?.uid,
 	}
+
 	function isLiked() {
 		if (Array.isArray(listing.likes) && listing.likes.includes(uid)) {
 			return true

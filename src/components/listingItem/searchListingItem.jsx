@@ -23,7 +23,7 @@ export const SearchListingItem = ({
 
 	const { likes } = listing
 
-	const isLiked = likes.includes(currentUser?.uid)
+	const [isLiked, setIsLiked] = useState(likes.includes(currentUser?.uid))
 	const config = {
 		id,
 		isLiked,
@@ -88,7 +88,10 @@ export const SearchListingItem = ({
 							</>
 						) : (
 							<div className='infoIcons'>
-								<div className='save' onClick={() => toggleLike()}>
+								<div
+									className='save'
+									onClick={() => (toggleLike(), setIsLiked(!isLiked))}
+								>
 									<div className='countLikes'>{listing.likes.length}</div>
 									{isLiked ? (
 										<MdFavorite className='likeOn' />
